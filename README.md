@@ -46,7 +46,11 @@ The project's main question is therefore no longer just "how accurate is the cla
 ## Roadmap
 
 - [x] **Phase 0: data.** Resumable download, data audit (design, confounding, count check), one streaming pass that writes a cell-level subsample and full pseudobulk.
-- [ ] **Phase 1: single-cell processing (Python).** Re-check QC and doublets; normalise, select HVGs; integrate across processing batch with **scVI** and **Harmony** and compare them with **scib-metrics**; check cell-type labels against the authors' annotation and **CellTypist**.
+- [ ] **Phase 1: single-cell processing (Python).** Code ready (`make phase1`):
+  - `03_qc.py`: per-batch adaptive QC check (median ± MADs). Doublet detection is not re-run, because it needs whole 10x lanes, not a 300-cell-per-sample subsample; the authors already removed doublets with freemuxlet and Scrublet.
+  - `04_integrate.py`: HVGs ranked across batches, then three embeddings (uncorrected PCA, **Harmony**, **scVI**) compared with **scib-metrics** *and* with a disease-signal check, because with this much confounding a high batch-mixing score can mean lupus and healthy cells were blended together. Also a six-gene type I interferon score per donor, tested within batches.
+  - `05_annotate.py`: **CellTypist** (`Immune_All_Low`) against the author labels, with lineage-level agreement and finer subsets.
+  - Integrated embeddings are used only for visualisation, clustering and annotation; phases 2–3 work on pseudobulk raw counts with batch as a covariate.
 - [ ] **Phase 2: statistics (R).** Cell-type proportion changes per sample (**propeller**). Pseudobulk differential expression per cell type, SLE vs healthy, with **DESeq2** and **limma-voom / dream** (donor as a random effect for repeat samples), adjusted for batch, ancestry and sex; Benjamini–Hochberg FDR. Pathway enrichment with **fgsea** on MSigDB Hallmark. Sanity check: the type I interferon signature reported in lupus should appear, mainly in monocytes.
 - [ ] **Phase 3: donor-level ML.** Features from cell-type proportions and per-cell-type pseudobulk expression. Models: L1-logistic regression, random forest, XGBoost. Nested cross-validation with `StratifiedGroupKFold` on donor. AUROC and AUPRC with bootstrap CIs, plus calibration. Stress tests:
   - a **covariate-only baseline** (batch + ancestry, no expression): the score any expression model has to beat
@@ -73,6 +77,8 @@ make dev         # tiny subsample (40 cells/sample) for writing phase-1 code qui
 make subsample   # full run: 500 cells/sample + pseudobulk over every cell
 ```
 
+Phase 1 needs extra packages: `pip install -e ".[phase1]"`. Check the GPU is visible with `python -c "import torch; print(torch.cuda.is_available())"`. Run `make phase1-dev` first (tiny subsample, a few minutes) to catch problems, then `make phase1`. CellTypist downloads its model on first use.
+
 Have about 15 GB free disk for the raw file and outputs. `make subsample` needs roughly 5 GB of RAM at peak with the default settings (fine on a 16 GB laptop); lower `subsample.max_cells_per_sample` or `subsample.block_size` in `config/config.yaml` if memory is tight. Phase 1 (scVI) is much faster on an NVIDIA GPU; free Colab or Kaggle GPUs work if you don't have one.
 
 ## Outputs of phase 0
@@ -95,11 +101,12 @@ Have about 15 GB free disk for the raw file and outputs. `make subsample` needs 
 ## Repository layout
 
 ```
-config/       config.yaml (real data), mock.yaml (fake data)
+config/       config.yaml (real data), mock.yaml (fake data), phase1.yaml (phase-1 parameters)
 envs/         python.yml, r.yml
-scripts/      00_download.py, 01_inspect.py, 02_subsample.py
-src/sle_pbmc/ streaming h5ad reader, sampling and pseudobulk code
-tests/        mock dataset builder + end-to-end tests
+scripts/      00_download.py, 01_inspect.py, 02_subsample.py   (phase 0)
+              03_qc.py, 04_integrate.py, 05_annotate.py          (phase 1)
+src/sle_pbmc/ streaming h5ad reader, sampling, pseudobulk, phase-1 helpers, figure style
+tests/        mock dataset builder + end-to-end tests for phases 0 and 1
 notebooks/    phase 1 and 3 analysis (to come)
 R/            phase 2 statistics (to come)
 data/         raw/ and processed/ (git-ignored)

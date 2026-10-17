@@ -9,16 +9,23 @@ import yaml
 
 DEFAULT_CONFIG = Path(__file__).resolve().parents[2] / "config" / "config.yaml"
 
-# Keys whose values are file or directory paths. Relative paths are resolved
+# Any key ending in one of these is a path. Relative paths are resolved
 # against the project root (the folder that contains config/), so scripts work
 # from any working directory.
-_PATH_KEYS = {
-    ("data", "raw_h5ad"),
-    ("subsample", "out_h5ad"),
-    ("dev", "out_h5ad"),
-    ("pseudobulk", "out_h5ad"),
-    ("reports_dir",),
-}
+_PATH_SUFFIXES = ("_h5ad", "_dir", "_csv")
+
+
+def _resolve(node: Any, root: Path) -> Any:
+    if isinstance(node, dict):
+        out = {}
+        for k, v in node.items():
+            if isinstance(v, str) and k.endswith(_PATH_SUFFIXES):
+                p = Path(v)
+                out[k] = p if p.is_absolute() else root / p
+            else:
+                out[k] = _resolve(v, root)
+        return out
+    return node
 
 
 def load_config(path: str | Path | None = None) -> dict[str, Any]:
@@ -26,12 +33,6 @@ def load_config(path: str | Path | None = None) -> dict[str, Any]:
     with open(path) as fh:
         cfg = yaml.safe_load(fh)
     root = path.resolve().parent.parent
-    for keys in _PATH_KEYS:
-        node = cfg
-        for k in keys[:-1]:
-            node = node.get(k, {})
-        if keys[-1] in node and node[keys[-1]] is not None:
-            p = Path(node[keys[-1]])
-            node[keys[-1]] = p if p.is_absolute() else root / p
+    cfg = _resolve(cfg, root)
     cfg["_root"] = root
     return cfg

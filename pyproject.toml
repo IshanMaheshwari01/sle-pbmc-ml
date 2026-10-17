@@ -9,6 +9,13 @@ description = "Donor-level lupus classification and pseudobulk analysis of 1.26M
 requires-python = ">=3.10"
 dependencies = ["anndata", "h5py", "numpy", "pandas", "scipy", "pyyaml", "requests", "tqdm", "tabulate"]
 
+[project.optional-dependencies]
+phase1 = [
+    "scanpy>=1.10", "scikit-misc", "igraph", "leidenalg", "harmonypy",
+    "scvi-tools>=1.1", "scib-metrics", "celltypist", "matplotlib",
+    "scikit-learn<1.8",  # CellTypist passes multi_class=, removed in scikit-learn 1.8
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

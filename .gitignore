@@ -12,6 +12,7 @@ results/**/*.pt
 
 # python / R / notebooks
 __pycache__/
+*.egg-info/
 *.pyc
 .pytest_cache/
 .ipynb_checkpoints/

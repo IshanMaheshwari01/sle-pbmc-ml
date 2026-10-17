@@ -91,10 +91,26 @@ def build_mock(n_sle: int = 12, n_healthy: int = 8, n_genes: int = 300, seed: in
         "cell_type"
     ].astype(str).str.contains("monocyte").to_numpy()
     lam[np.ix_(sle_mono, np.arange(10))] *= 4
+    # cell-type identity: each type up-regulates its own block of 20 genes
+    ct_codes = pd.Categorical(obs["cell_type"], categories=CELL_TYPES).codes
+    for k in range(len(CELL_TYPES)):
+        block = np.arange(40 + 20 * k, 60 + 20 * k)
+        lam[np.ix_(ct_codes == k, block)] *= 6
+    # processing-batch effect on a separate block of genes
+    batch_codes = obs["Processing_Cohort"].astype(int).to_numpy()
+    for b in range(1, 5):
+        block = np.arange(200 + 10 * b, 210 + 10 * b)
+        lam[np.ix_(batch_codes == b, block)] *= 3
     counts = sp.csr_matrix(rng.poisson(lam).astype(np.float32))
 
+    # gene symbols: the IFN genes sit where the lupus signal was put,
+    # mitochondrial and ribosomal genes give the QC step something to measure
+    names = [f"GENE{i}" for i in range(n_genes)]
+    names[:10] = ["IFI27", "IFI44L", "IFIT1", "ISG15", "RSAD2", "SIGLEC1", "MX1", "OAS1", "IFI6", "IFIT3"]
+    names[10:15] = ["MT-ND1", "MT-CO1", "MT-CO2", "MT-ATP6", "MT-CYB"]
+    names[15:20] = ["RPS3", "RPS6", "RPL13", "RPL3", "RPS27"]
     var = pd.DataFrame(
-        {"feature_name": [f"GENE{i}" for i in range(n_genes)], "feature_biotype": "gene"},
+        {"feature_name": names, "feature_biotype": "gene"},
         index=[f"ENSG{i:011d}" for i in range(n_genes)],
     )
     raw = ad.AnnData(X=counts, obs=obs, var=var)

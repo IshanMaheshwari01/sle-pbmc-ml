@@ -1,9 +1,0 @@
-anndata
-h5py
-numpy
-pandas
-scipy
-pyyaml
-requests
-tqdm
-tabulate

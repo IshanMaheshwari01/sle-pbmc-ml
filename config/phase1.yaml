@@ -1,0 +1,66 @@
+# ---------------------------------------------------------------------------
+# Phase 1 parameters: QC, integration, annotation check.
+# Input/output paths come from config.yaml (subsample.out_h5ad, reports_dir),
+# so the same file works for the real data and the mock.
+# ---------------------------------------------------------------------------
+
+seed: 0
+batch_key: "Processing_Cohort"   # integrate across the 4 processing batches
+
+qc:
+  # The authors already removed low-quality cells and doublets, so this is a
+  # check, not a first pass. Thresholds adapt per batch: a cell is flagged
+  # when it sits more than N median absolute deviations (MADs) from its
+  # batch's median, which copes with batches sequenced to different depths.
+  mad_log_counts: 5
+  mad_log_genes: 5
+  mad_pct_mt: 3
+  max_pct_mt: 20          # hard ceiling on top of the MAD rule
+  min_genes: 200
+
+hvg:
+  n_top_genes: 3000       # seurat_v3 on raw counts, ranked across batches
+
+pca:
+  n_comps: 50
+
+neighbors:
+  n_neighbors: 15
+
+scvi:
+  n_latent: 30
+  n_layers: 2
+  n_hidden: 128
+  max_epochs: 200         # early stopping usually ends sooner
+  batch_size: 512
+
+benchmark:
+  # scib-metrics on a stratified subset keeps memory under ~4 GB.
+  n_cells: 25000
+
+disease_signal:
+  # Does integration erase disease differences? Checked inside the batch that
+  # has both groups, per cell type, before and after integration.
+  batch: "4.0"
+  k: 15
+  min_cells_per_group: 100
+
+ifn:
+  # Six-gene type I interferon score (Rice et al. 2013, Lancet Neurol;
+  # widely used in lupus). Scored per cell, summarised per sample.
+  genes: ["IFI27", "IFI44L", "IFIT1", "ISG15", "RSAD2", "SIGLEC1"]
+  cell_type: "classical monocyte"
+
+# Cell types folded for plotting: small or ambiguous labels go to "Other",
+# and the two dendritic-cell types are combined, giving 8 groups.
+plot_cell_type_map:
+  "plasmacytoid dendritic cell": "dendritic cell"
+  "conventional dendritic cell": "dendritic cell"
+  "plasmablast": "Other"
+  "progenitor cell": "Other"
+  "lymphocyte": "Other"
+
+celltypist:
+  model: "Immune_All_Low.pkl"
+  majority_voting: true   # each Leiden cluster takes its most common per-cell label
+  chunk_size: 20000       # cells per prediction batch; lower it if memory is tight

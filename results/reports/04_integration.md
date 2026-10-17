@@ -1,7 +1,7 @@
 # Phase 1: integration
 
 - Cells: 78,898; highly variable genes: 3,000 (seurat_v3, ranked across `Processing_Cohort`); PCs: 50
-- scVI: 200 epochs on NVIDIA GeForce RTX 4050 Laptop GPU in 5.2 min; latent dimensions: 30
+- scVI: 200 epochs on NVIDIA GeForce RTX 4050 Laptop GPU in 5.3 min; latent dimensions: 30
 - Leiden clusters on the scVI graph: 13
 
 ## Standard integration benchmark (scib-metrics)
@@ -62,4 +62,4 @@ The `all` row pools batches and so mixes the disease effect with the batch effec
 - `04_umap_cell_types.png`
 - `04_ifn_score.png`
 
-Total time: 9.0 min
+Total time: 9.2 min

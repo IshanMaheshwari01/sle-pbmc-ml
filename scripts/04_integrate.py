@@ -378,7 +378,10 @@ def main() -> None:
             "AUROC *within* a batch cannot come from batch."
         )
         rows = []
-        for b, g in list(ifn_donor.groupby(batch, observed=True)) + [("all", ifn_donor)]:
+        # pooled row: one value per donor (donors sequenced in several batches appear
+        # once per batch above; here their batch values are averaged)
+        pooled = ifn_donor.groupby("donor", observed=True).agg(ifn=("ifn", "mean"), disease=("disease", "first"))
+        for b, g in list(ifn_donor.groupby(batch, observed=True)) + [("all (one row per donor)", pooled)]:
             sle = g.loc[g["disease"] == "systemic lupus erythematosus", "ifn"]
             hc = g.loc[g["disease"] == "normal", "ifn"]
             row = {"batch": str(b), "SLE donors": len(sle), "healthy donors": len(hc),
@@ -389,9 +392,14 @@ def main() -> None:
                 row["AUROC"] = u / (len(sle) * len(hc))
                 row["p (Mann-Whitney)"] = pval
             rows.append(row)
-        L.append("\n" + pd.DataFrame(rows).round(4).to_markdown(index=False))
-        L.append("\nThe `all` row pools batches and so mixes the disease effect with the batch effect; "
-                 "the within-batch rows are the honest ones.")
+        tab = pd.DataFrame(rows)
+        if "p (Mann-Whitney)" in tab:
+            tab["p (Mann-Whitney)"] = tab["p (Mann-Whitney)"].map(
+                lambda v: "" if pd.isna(v) else ("< 1e-4" if v < 1e-4 else f"{v:.4f}"))
+        L.append("\n" + tab.round(3).to_markdown(index=False))
+        L.append("\nDonors sequenced in more than one batch (technical replicates) appear in each of those "
+                 "batch rows, which is what puts healthy donors into batch 2. The pooled row mixes the "
+                 "disease effect with the batch effect; the within-batch rows are the honest ones.")
     L.append("\n## Figures\n")
     for f in (f1, f2, f3):
         if f is not None:

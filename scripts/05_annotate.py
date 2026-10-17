@@ -128,8 +128,21 @@ def main() -> None:
         confs.append(r["conf_score"].to_numpy() if "conf_score" in r else np.full(part.n_obs, np.nan))
         print(f"CellTypist: {min(start + chunk, q.n_obs):,}/{q.n_obs:,} cells")
     per_cell = pd.Series(np.concatenate(labels), index=q.obs_names)
+    n_overclust = None
     if p1["celltypist"]["majority_voting"]:
-        clusters = adata.obs["leiden_scvi"].astype(str)
+        # Vote over a deliberately fine clustering, as CellTypist does: with a
+        # coarse one, rare populations (plasmablasts, progenitors) are swallowed
+        # by a large neighbouring cluster and inherit its label.
+        import scanpy as sc
+
+        res = p1["celltypist"].get("overcluster_resolution", "auto")
+        if res == "auto":  # CellTypist's own rule of thumb
+            n = adata.n_obs
+            res = 5 if n < 5000 else 10 if n < 20000 else 15 if n < 40000 else 20 if n < 100000 else 25
+        sc.tl.leiden(adata, neighbors_key="scVI", resolution=float(res), key_added="overclust",
+                     flavor="igraph", n_iterations=2, directed=False, random_state=p1["seed"])
+        clusters = adata.obs["overclust"].astype(str)
+        n_overclust = clusters.nunique()
         winner = per_cell.groupby(clusters.values).agg(lambda s: s.value_counts().index[0])
         majority = clusters.map(winner).to_numpy()
     else:
@@ -142,6 +155,7 @@ def main() -> None:
     out["conf_score"] = np.concatenate(confs)
     out["author_lineage"] = out["author_label"].map(AUTHOR_LINEAGE).fillna("other")
     out["celltypist_lineage"] = out["celltypist_majority"].map(celltypist_lineage)
+    out["celltypist_lineage_per_cell"] = out["celltypist_label"].map(celltypist_lineage)
     paths["reports"].mkdir(parents=True, exist_ok=True)
     out.to_csv(paths["celltypist_csv"])
 
@@ -152,11 +166,13 @@ def main() -> None:
         rows.append({
             "author label": lab,
             "cells": len(g),
-            "lineage agreement %": round(100 * (g["celltypist_lineage"] == g["author_lineage"]).mean(), 1),
+            "agreement % (majority)": round(100 * (g["celltypist_lineage"] == g["author_lineage"]).mean(), 1),
+            "agreement % (per cell)": round(100 * (g["celltypist_lineage_per_cell"] == g["author_lineage"]).mean(), 1),
             "top CellTypist labels": "; ".join(f"{k} ({v:.0%})" for k, v in top.items()),
         })
     agree = pd.DataFrame(rows).sort_values("cells", ascending=False)
     overall = 100 * (out["celltypist_lineage"] == out["author_lineage"]).mean()
+    overall_cell = 100 * (out["celltypist_lineage_per_cell"] == out["author_lineage"]).mean()
 
     # ---- heatmap: author label x CellTypist label (row %) ------------------------------
     ct = pd.crosstab(out["author_label"], out["celltypist_majority"], normalize="index") * 100
@@ -192,10 +208,12 @@ def main() -> None:
     plt.close(fig)
 
     L = ["# Phase 1: cell-type label check with CellTypist\n"]
-    L.append(f"- Model: `{model_name}`; majority voting over `leiden_scvi` clusters "
-             f"({adata.obs['leiden_scvi'].nunique()} clusters)")
+    vote = (f"majority voting over {n_overclust} fine Leiden clusters on the scVI graph"
+            if n_overclust else "no majority voting")
+    L.append(f"- Model: `{model_name}`; {vote}")
     L.append(f"- Cells: {len(out):,}; distinct CellTypist labels: {out['celltypist_majority'].nunique()}")
-    L.append(f"- **Overall lineage agreement with the author labels: {overall:.1f}%**\n")
+    L.append(f"- **Lineage agreement with the author labels: {overall:.1f}% after majority voting, "
+             f"{overall_cell:.1f}% per cell**\n")
     L.append(agree.to_markdown(index=False))
     L.append(
         "\nLow agreement for a label means either the author label is coarse or ambiguous "

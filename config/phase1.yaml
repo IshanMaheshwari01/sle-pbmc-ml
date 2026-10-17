@@ -31,7 +31,7 @@ scvi:
   n_latent: 30
   n_layers: 2
   n_hidden: 128
-  max_epochs: 200         # early stopping usually ends sooner
+  max_epochs: 400         # early stopping ends it once validation loss stops improving
   batch_size: 512
 
 benchmark:
@@ -62,5 +62,6 @@ plot_cell_type_map:
 
 celltypist:
   model: "Immune_All_Low.pkl"
-  majority_voting: true   # each Leiden cluster takes its most common per-cell label
+  majority_voting: true   # each fine cluster takes its most common per-cell label
+  overcluster_resolution: "auto"   # Leiden resolution for the voting clusters; auto = CellTypist's rule
   chunk_size: 20000       # cells per prediction batch; lower it if memory is tight

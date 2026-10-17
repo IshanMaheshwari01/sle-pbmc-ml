@@ -6,6 +6,10 @@ data/processed/*
 *.h5ad
 *.h5ad.part
 
+# trial runs and large per-cell tables
+results/**/dev/
+results/reports/*_predictions.csv
+
 # large model outputs
 results/models/
 results/**/*.pt

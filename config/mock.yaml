@@ -1,0 +1,64 @@
+# ---------------------------------------------------------------------------
+# MOCK configuration: same as config.yaml but pointed at the fake dataset
+# built by `make mock`. Lets you run everything without the 12 GB download.
+# Every path, threshold and column name lives here, not in code.
+# ---------------------------------------------------------------------------
+
+data:
+  # CELLxGENE collection for Perez et al. 2022 (Science), "Single-cell RNA-seq
+  # reveals cell type-specific molecular and genetic associations to lupus".
+  collection_id: "436154da-bcf1-4130-9c8b-120ff9a888f2"
+  # Dataset inside that collection (1,263,676 cells). The download script asks
+  # the CELLxGENE Curation API for the current file URL, because the versioned
+  # URL changes whenever CELLxGENE re-publishes the dataset.
+  dataset_id: "218acb0f-9f2f-4f76-b90b-15a4b7c7f629"
+  # Used only if the API cannot be reached. Checked 2026-10-17 (12,218,105,530 bytes).
+  fallback_url: "https://datasets.cellxgene.cziscience.com/c55dc602-d168-4d15-acc1-5de4f2f5d551.h5ad"
+  raw_h5ad: "data/raw/mock.h5ad"
+
+# Column names in the CELLxGENE h5ad (schema 5.x). If a CELLxGENE re-release
+# renames something, `make inspect` will tell you and you only change it here.
+columns:
+  donor: "donor_id"                # one value per person
+  disease: "disease"               # SLE vs normal (CELLxGENE ontology label)
+  disease_state: "disease_state"   # managed / flare / treated / na (healthy)
+  batch: "Processing_Cohort"       # processing batch (4 in the paper)
+  library: "library_uuid"          # 10x lane / pool -> technical replicates
+  ancestry: "self_reported_ethnicity"
+  sex: "sex"
+  cell_type: "cell_type"           # harmonised CELLxGENE labels
+  author_cell_type: "author_cell_type"
+  gene_symbol: "feature_name"      # var column holding gene symbols
+
+# A "sample" is one person at one time point. Flare and post-flare (treated)
+# samples from the same donor are different samples of the SAME donor, so every
+# cross-validation split must still be grouped by donor.
+sample_key: ["donor_id", "disease_state"]
+
+subsample:
+  seed: 42
+  # Cap on cells kept per sample in the cell-level object. Every sample is kept;
+  # big samples are thinned. 500 -> roughly 170k cells, comfortable in 16 GB RAM.
+  max_cells_per_sample: 500
+  # Rows read from disk per block while streaming the 12 GB file.
+  # 25k rows is roughly 1 GB of RAM at peak; lower it if memory is tight.
+  block_size: 25000
+  out_h5ad: "data/processed/mock_cells_subsample.h5ad"
+
+dev:
+  # Tiny version for fast iteration on code (`make dev`).
+  max_cells_per_sample: 40
+  out_h5ad: "data/processed/mock_cells_dev.h5ad"
+
+pseudobulk:
+  # Raw counts summed per sample x cell type over ALL 1.26M cells (not the
+  # subsample), so the statistics phase uses every cell.
+  out_h5ad: "data/processed/mock_pseudobulk.h5ad"
+  min_cells: 10   # pseudobulk profiles built from fewer cells are flagged, not dropped
+  # Split each sample x cell type further by these columns. The audit showed
+  # 54 samples sequenced in more than one processing batch; keeping those
+  # replicates separate makes batch a clean covariate and lets them act as
+  # bridges for estimating the batch effect. Use [] to sum them instead.
+  split_by: ["Processing_Cohort"]
+
+reports_dir: "results/reports/mock"

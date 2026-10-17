@@ -1,0 +1,26 @@
+# data never goes in git
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+*.h5ad
+*.h5ad.part
+
+# large model outputs
+results/models/
+results/**/*.pt
+
+# python / R / notebooks
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.Rhistory
+.RData
+.Rproj.user/
+*_files/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

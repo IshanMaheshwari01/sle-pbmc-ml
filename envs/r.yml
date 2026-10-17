@@ -1,0 +1,23 @@
+# mamba env create -f envs/r.yml && conda activate sle-r
+# Phase 2 (pseudobulk statistics) runs in R.
+name: sle-r
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base=4.4
+  - r-tidyverse
+  - r-yaml
+  - r-lme4
+  - bioconductor-zellkonverter      # read .h5ad into SingleCellExperiment
+  - bioconductor-singlecellexperiment
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-limma
+  - bioconductor-variancepartition  # dream(): donor random effect for repeated samples
+  - bioconductor-speckle            # propeller(): cell-type proportion testing
+  - bioconductor-fgsea
+  - bioconductor-msigdbr
+  - r-ggplot2
+  - r-pheatmap
+  - quarto

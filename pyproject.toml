@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sle-pbmc"
+version = "0.1.0"
+description = "Donor-level lupus classification and pseudobulk analysis of 1.26M PBMCs (Perez et al. 2022)"
+requires-python = ">=3.10"
+dependencies = ["anndata", "h5py", "numpy", "pandas", "scipy", "pyyaml", "requests", "tqdm", "tabulate"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

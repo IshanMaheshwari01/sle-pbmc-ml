@@ -1,0 +1,275 @@
+sample_id,donor,disease,n_cells,n_libraries,n_batches
+1004|managed,1004,systemic lupus erythematosus,2988,4,1
+1014|managed,1014,systemic lupus erythematosus,5319,8,2
+1015|managed,1015,systemic lupus erythematosus,3007,4,1
+1019|managed,1019,systemic lupus erythematosus,4100,4,1
+1022|managed,1022,systemic lupus erythematosus,3563,4,1
+1031|managed,1031,systemic lupus erythematosus,3223,4,1
+1039|managed,1039,systemic lupus erythematosus,2116,4,1
+1045|managed,1045,systemic lupus erythematosus,3410,4,1
+1046|managed,1046,systemic lupus erythematosus,5220,4,1
+1051|managed,1051,systemic lupus erythematosus,2964,4,1
+1054|managed,1054,systemic lupus erythematosus,3893,4,1
+1056|managed,1056,systemic lupus erythematosus,4263,4,1
+1063|managed,1063,systemic lupus erythematosus,3910,4,1
+1068|managed,1068,systemic lupus erythematosus,4742,4,1
+1078|managed,1078,systemic lupus erythematosus,8449,8,2
+1087|managed,1087,systemic lupus erythematosus,5566,4,1
+1101|managed,1101,systemic lupus erythematosus,7149,8,2
+1110|managed,1110,systemic lupus erythematosus,7113,8,2
+1119|managed,1119,systemic lupus erythematosus,3134,4,1
+1121|managed,1121,systemic lupus erythematosus,5030,4,1
+1122|managed,1122,systemic lupus erythematosus,5900,4,1
+1127|managed,1127,systemic lupus erythematosus,3661,4,1
+1130|flare,1130,systemic lupus erythematosus,2832,2,1
+1130|managed,1130,systemic lupus erythematosus,4785,4,1
+1130|treated,1130,systemic lupus erythematosus,2636,2,1
+1132|managed,1132,systemic lupus erythematosus,7111,8,2
+1165|managed,1165,systemic lupus erythematosus,3537,4,1
+1193|managed,1193,systemic lupus erythematosus,3730,4,1
+1195|managed,1195,systemic lupus erythematosus,3128,4,1
+1196|managed,1196,systemic lupus erythematosus,3454,4,1
+1197|managed,1197,systemic lupus erythematosus,3907,4,1
+1203|managed,1203,systemic lupus erythematosus,5039,4,1
+1216|managed,1216,systemic lupus erythematosus,3940,4,1
+1219|managed,1219,systemic lupus erythematosus,4021,4,1
+1221|managed,1221,systemic lupus erythematosus,4188,4,1
+1222|managed,1222,systemic lupus erythematosus,5880,8,2
+1225|managed,1225,systemic lupus erythematosus,4458,4,1
+1226|managed,1226,systemic lupus erythematosus,4377,4,1
+1234|managed,1234,systemic lupus erythematosus,3864,4,1
+1240|managed,1240,systemic lupus erythematosus,3313,4,1
+1243|managed,1243,systemic lupus erythematosus,8181,8,2
+1248|managed,1248,systemic lupus erythematosus,3607,4,1
+1249|managed,1249,systemic lupus erythematosus,4563,4,1
+1250|managed,1250,systemic lupus erythematosus,3889,4,1
+1251|managed,1251,systemic lupus erythematosus,3778,4,1
+1256|managed,1256,systemic lupus erythematosus,5488,4,1
+1259|managed,1259,systemic lupus erythematosus,9052,8,2
+1262|managed,1262,systemic lupus erythematosus,7470,8,1
+1270|managed,1270,systemic lupus erythematosus,5756,8,1
+1279|managed,1279,systemic lupus erythematosus,7467,8,1
+1281|managed,1281,systemic lupus erythematosus,7672,8,1
+1285|managed,1285,systemic lupus erythematosus,2671,4,1
+1294|managed,1294,systemic lupus erythematosus,5117,4,1
+1297|managed,1297,systemic lupus erythematosus,2905,4,1
+1315|managed,1315,systemic lupus erythematosus,1998,4,1
+1320|managed,1320,systemic lupus erythematosus,4243,4,1
+1324|managed,1324,systemic lupus erythematosus,4116,4,1
+1325|managed,1325,systemic lupus erythematosus,7402,4,1
+1326|managed,1326,systemic lupus erythematosus,9898,8,2
+1329|managed,1329,systemic lupus erythematosus,3439,4,1
+1333|managed,1333,systemic lupus erythematosus,3907,4,1
+1334|managed,1334,systemic lupus erythematosus,9236,8,2
+1337|managed,1337,systemic lupus erythematosus,3050,4,1
+1338|managed,1338,systemic lupus erythematosus,3532,4,1
+1340|managed,1340,systemic lupus erythematosus,3583,4,1
+1341|managed,1341,systemic lupus erythematosus,4022,4,1
+1366|managed,1366,systemic lupus erythematosus,3994,4,1
+1368|managed,1368,systemic lupus erythematosus,2996,4,1
+1404|managed,1404,systemic lupus erythematosus,4202,4,1
+1414|managed,1414,systemic lupus erythematosus,3870,4,1
+1417|managed,1417,systemic lupus erythematosus,3323,4,1
+1418|managed,1418,systemic lupus erythematosus,3623,4,1
+1419|managed,1419,systemic lupus erythematosus,8689,8,2
+1420|managed,1420,systemic lupus erythematosus,9971,8,2
+1445|managed,1445,systemic lupus erythematosus,2149,4,1
+1452|managed,1452,systemic lupus erythematosus,4505,4,1
+1472|managed,1472,systemic lupus erythematosus,3433,4,1
+1479|managed,1479,systemic lupus erythematosus,4093,4,1
+1480|managed,1480,systemic lupus erythematosus,4357,4,1
+1492|managed,1492,systemic lupus erythematosus,3638,4,1
+1493|managed,1493,systemic lupus erythematosus,2740,4,1
+1496|managed,1496,systemic lupus erythematosus,6849,8,2
+1510|managed,1510,systemic lupus erythematosus,8162,8,2
+1514|managed,1514,systemic lupus erythematosus,7788,8,2
+1522|managed,1522,systemic lupus erythematosus,4812,4,1
+1535|managed,1535,systemic lupus erythematosus,2789,4,1
+1543|managed,1543,systemic lupus erythematosus,2967,4,1
+1545|managed,1545,systemic lupus erythematosus,8677,8,2
+1558|managed,1558,systemic lupus erythematosus,4011,4,1
+1567|managed,1567,systemic lupus erythematosus,3078,4,1
+1569|managed,1569,systemic lupus erythematosus,2971,4,1
+1582|managed,1582,systemic lupus erythematosus,2429,4,1
+1584|managed,1584,systemic lupus erythematosus,3477,4,1
+1586|flare,1586,systemic lupus erythematosus,2050,2,1
+1586|treated,1586,systemic lupus erythematosus,1065,2,1
+1588|managed,1588,systemic lupus erythematosus,4476,4,1
+1596|managed,1596,systemic lupus erythematosus,7777,8,2
+1597|managed,1597,systemic lupus erythematosus,3683,4,1
+1602|managed,1602,systemic lupus erythematosus,4222,4,1
+1614|managed,1614,systemic lupus erythematosus,8125,8,2
+1615|managed,1615,systemic lupus erythematosus,4702,4,1
+1621|managed,1621,systemic lupus erythematosus,4894,4,1
+1623|managed,1623,systemic lupus erythematosus,3757,4,1
+1633|managed,1633,systemic lupus erythematosus,3197,4,1
+1641|managed,1641,systemic lupus erythematosus,4606,4,1
+1660|managed,1660,systemic lupus erythematosus,5877,8,2
+1667|managed,1667,systemic lupus erythematosus,8348,8,2
+1672|managed,1672,systemic lupus erythematosus,3447,4,1
+1680|managed,1680,systemic lupus erythematosus,5051,4,1
+1682|managed,1682,systemic lupus erythematosus,8091,8,2
+1716|managed,1716,systemic lupus erythematosus,6387,8,2
+1721|managed,1721,systemic lupus erythematosus,5196,4,1
+1726|managed,1726,systemic lupus erythematosus,3903,4,1
+1730|managed,1730,systemic lupus erythematosus,8275,8,2
+1731|managed,1731,systemic lupus erythematosus,2633,4,1
+1737|managed,1737,systemic lupus erythematosus,4121,4,1
+1741|managed,1741,systemic lupus erythematosus,4179,4,1
+1743|managed,1743,systemic lupus erythematosus,7445,8,2
+1754|managed,1754,systemic lupus erythematosus,8158,6,2
+1760|managed,1760,systemic lupus erythematosus,3817,4,1
+1763|flare,1763,systemic lupus erythematosus,2497,2,1
+1763|managed,1763,systemic lupus erythematosus,3921,4,1
+1763|treated,1763,systemic lupus erythematosus,3076,2,1
+1767|managed,1767,systemic lupus erythematosus,3885,4,1
+1768|managed,1768,systemic lupus erythematosus,7604,8,2
+1771|managed,1771,systemic lupus erythematosus,8006,6,2
+1772|flare,1772,systemic lupus erythematosus,3967,4,1
+1772|managed,1772,systemic lupus erythematosus,6268,4,1
+1775|managed,1775,systemic lupus erythematosus,3707,4,1
+1785|managed,1785,systemic lupus erythematosus,3683,4,1
+1791|managed,1791,systemic lupus erythematosus,6936,6,2
+1799|managed,1799,systemic lupus erythematosus,3231,4,1
+1804|managed,1804,systemic lupus erythematosus,6255,6,2
+1811|managed,1811,systemic lupus erythematosus,5681,8,2
+1815|managed,1815,systemic lupus erythematosus,3786,4,1
+1827|managed,1827,systemic lupus erythematosus,3177,4,1
+1829|managed,1829,systemic lupus erythematosus,3423,4,1
+1848|managed,1848,systemic lupus erythematosus,3518,4,1
+1857|managed,1857,systemic lupus erythematosus,4765,4,1
+1881|managed,1881,systemic lupus erythematosus,2965,4,1
+1886|managed,1886,systemic lupus erythematosus,3131,4,1
+1888|managed,1888,systemic lupus erythematosus,4789,4,1
+1891|managed,1891,systemic lupus erythematosus,4339,4,1
+1892|managed,1892,systemic lupus erythematosus,3457,4,1
+1909|managed,1909,systemic lupus erythematosus,4082,4,1
+1928|managed,1928,systemic lupus erythematosus,2582,4,1
+1941|managed,1941,systemic lupus erythematosus,4274,4,1
+1947|managed,1947,systemic lupus erythematosus,5513,4,1
+1958|managed,1958,systemic lupus erythematosus,3120,4,1
+1961|managed,1961,systemic lupus erythematosus,3724,4,1
+2061|managed,2061,systemic lupus erythematosus,4038,4,1
+2082|managed,2082,systemic lupus erythematosus,4128,4,1
+2132|flare,2132,systemic lupus erythematosus,4666,4,1
+2135|managed,2135,systemic lupus erythematosus,7184,4,1
+FLARE001|flare,FLARE001,systemic lupus erythematosus,2701,4,1
+FLARE001|treated,FLARE001,systemic lupus erythematosus,2660,4,1
+FLARE004|flare,FLARE004,systemic lupus erythematosus,2002,4,1
+FLARE004|treated,FLARE004,systemic lupus erythematosus,3096,4,1
+FLARE005|flare,FLARE005,systemic lupus erythematosus,2766,4,1
+FLARE006|flare,FLARE006,systemic lupus erythematosus,3311,4,1
+FLARE007|flare,FLARE007,systemic lupus erythematosus,2796,4,1
+FLARE009|flare,FLARE009,systemic lupus erythematosus,2484,4,1
+FLARE009|treated,FLARE009,systemic lupus erythematosus,2255,4,1
+FLARE010|flare,FLARE010,systemic lupus erythematosus,761,4,1
+FLARE010|treated,FLARE010,systemic lupus erythematosus,1491,4,1
+FLARE011|flare,FLARE011,systemic lupus erythematosus,1893,4,1
+FLARE011|treated,FLARE011,systemic lupus erythematosus,1469,4,1
+FLARE013|flare,FLARE013,systemic lupus erythematosus,4839,4,1
+FLARE013|treated,FLARE013,systemic lupus erythematosus,3489,4,1
+FLARE014|flare,FLARE014,systemic lupus erythematosus,3701,4,1
+FLARE015|flare,FLARE015,systemic lupus erythematosus,3147,4,1
+FLARE016|flare,FLARE016,systemic lupus erythematosus,3912,4,1
+FLARE016|treated,FLARE016,systemic lupus erythematosus,4275,4,1
+FLARE017|flare,FLARE017,systemic lupus erythematosus,1189,4,1
+FLARE020|flare,FLARE020,systemic lupus erythematosus,3606,4,1
+HC-002|na,HC-002,normal,4016,4,1
+HC-006|na,HC-006,normal,5598,4,1
+HC-008|na,HC-008,normal,1899,4,1
+HC-009|na,HC-009,normal,9955,4,1
+HC-011|na,HC-011,normal,2791,4,1
+HC-014|na,HC-014,normal,6093,8,2
+HC-015|na,HC-015,normal,2103,4,1
+HC-019|na,HC-019,normal,2649,4,1
+HC-020|na,HC-020,normal,3887,4,1
+HC-022|na,HC-022,normal,4506,4,1
+HC-500|na,HC-500,normal,3338,4,1
+HC-501|na,HC-501,normal,2749,4,1
+HC-502|na,HC-502,normal,7651,4,1
+HC-503|na,HC-503,normal,2947,4,1
+HC-504|na,HC-504,normal,7085,8,2
+HC-506|na,HC-506,normal,6862,8,2
+HC-508|na,HC-508,normal,1810,4,1
+HC-512|na,HC-512,normal,1990,4,1
+HC-516|na,HC-516,normal,3794,4,1
+HC-519|na,HC-519,normal,5066,4,1
+HC-520|na,HC-520,normal,3204,4,1
+HC-524|na,HC-524,normal,5205,4,1
+HC-526|na,HC-526,normal,4855,4,1
+HC-531|na,HC-531,normal,4297,4,1
+HC-532|na,HC-532,normal,2439,4,1
+HC-533|na,HC-533,normal,2841,4,1
+HC-536|na,HC-536,normal,3759,4,1
+HC-538|na,HC-538,normal,4979,4,1
+HC-540|na,HC-540,normal,2865,4,1
+HC-541|na,HC-541,normal,4462,4,1
+HC-543|na,HC-543,normal,2962,4,1
+HC-545|na,HC-545,normal,2443,4,1
+HC-546|na,HC-546,normal,4102,4,1
+HC-551|na,HC-551,normal,2478,4,1
+HC-552|na,HC-552,normal,3725,4,1
+HC-554|na,HC-554,normal,4275,4,1
+HC-556|na,HC-556,normal,1933,4,1
+HC-558|na,HC-558,normal,3269,4,1
+HC-563|na,HC-563,normal,4721,4,1
+HC-566|na,HC-566,normal,456,4,1
+HC-567|na,HC-567,normal,4978,4,1
+HC-571|na,HC-571,normal,2561,4,1
+HC-572|na,HC-572,normal,5248,4,1
+HC-573|na,HC-573,normal,5812,4,1
+HC-574|na,HC-574,normal,2636,4,1
+HC-578|na,HC-578,normal,4304,4,1
+HC-580|na,HC-580,normal,3232,4,1
+HC-585|na,HC-585,normal,5330,4,1
+ICC_control|na,ICC_control,normal,1487,4,1
+IGTB1290|na,IGTB1290,normal,6207,10,2
+IGTB1372|na,IGTB1372,normal,9910,12,3
+IGTB141|na,IGTB141,normal,5391,8,2
+IGTB143|na,IGTB143,normal,9308,12,2
+IGTB1506|na,IGTB1506,normal,8333,16,3
+IGTB1539|na,IGTB1539,normal,3729,8,2
+IGTB1540|na,IGTB1540,normal,10382,12,2
+IGTB1542|na,IGTB1542,normal,3184,4,1
+IGTB1575|na,IGTB1575,normal,5162,8,2
+IGTB1650|na,IGTB1650,normal,10292,12,2
+IGTB1731|na,IGTB1731,normal,3850,4,1
+IGTB1762|na,IGTB1762,normal,4878,4,1
+IGTB1768|na,IGTB1768,normal,4142,4,1
+IGTB1789|na,IGTB1789,normal,4497,4,1
+IGTB1793|na,IGTB1793,normal,4152,4,1
+IGTB1814|na,IGTB1814,normal,3938,4,1
+IGTB1815|na,IGTB1815,normal,4075,4,1
+IGTB1819|na,IGTB1819,normal,3915,4,1
+IGTB1826|na,IGTB1826,normal,3677,4,1
+IGTB1827|na,IGTB1827,normal,3527,4,1
+IGTB1828|na,IGTB1828,normal,3273,4,1
+IGTB1840|na,IGTB1840,normal,3839,4,1
+IGTB1844|na,IGTB1844,normal,5122,4,1
+IGTB1871|na,IGTB1871,normal,3869,4,1
+IGTB1895|na,IGTB1895,normal,4061,4,1
+IGTB1901|na,IGTB1901,normal,3327,4,1
+IGTB1906|na,IGTB1906,normal,3510,7,1
+IGTB1908|na,IGTB1908,normal,3736,4,1
+IGTB1913|na,IGTB1913,normal,4557,4,1
+IGTB1916|na,IGTB1916,normal,3442,4,1
+IGTB1921|na,IGTB1921,normal,8510,10,3
+IGTB1952|na,IGTB1952,normal,3384,4,1
+IGTB195|na,IGTB195,normal,12768,16,3
+IGTB1966|na,IGTB1966,normal,5131,4,1
+IGTB1974|na,IGTB1974,normal,3510,4,1
+IGTB1982|na,IGTB1982,normal,3232,4,1
+IGTB1987|na,IGTB1987,normal,3813,4,1
+IGTB1996|na,IGTB1996,normal,3449,4,1
+IGTB2007|na,IGTB2007,normal,3818,4,1
+IGTB2065|na,IGTB2065,normal,3638,4,1
+IGTB256|na,IGTB256,normal,7959,10,2
+IGTB469|na,IGTB469,normal,13543,16,3
+IGTB498|na,IGTB498,normal,8892,12,2
+IGTB508|na,IGTB508,normal,11178,16,3
+IGTB514|na,IGTB514,normal,12491,14,3
+IGTB645|na,IGTB645,normal,7844,12,2
+IGTB670|na,IGTB670,normal,7663,8,2
+IGTB826|na,IGTB826,normal,8868,12,3
+IGTB884|na,IGTB884,normal,5973,12,2
+IGTB986|na,IGTB986,normal,7822,12,2

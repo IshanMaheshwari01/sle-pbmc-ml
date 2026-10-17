@@ -1,0 +1,36 @@
+# mamba env create -f envs/python.yml && conda activate sle-py
+name: sle-py
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  # phase 0: data
+  - anndata>=0.10
+  - h5py
+  - numpy
+  - pandas
+  - scipy
+  - pyyaml
+  - requests
+  - tqdm
+  - tabulate
+  - pytest
+  # phase 1: single-cell processing and integration
+  - scanpy>=1.10
+  - leidenalg
+  - scrublet
+  - harmonypy
+  - pip
+  - pip:
+      - scvi-tools>=1.1      # pulls PyTorch; install the CUDA build if you have an NVIDIA GPU
+      - scib-metrics
+      - celltypist
+  # phase 3: donor-level ML
+  - scikit-learn>=1.4
+  - xgboost
+  - shap
+  # plotting / notebooks
+  - matplotlib
+  - seaborn
+  - jupyterlab

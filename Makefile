@@ -2,7 +2,7 @@ PY      ?= python
 CONFIG  ?= config/config.yaml
 RSCRIPT ?= Rscript
 
-.PHONY: help mock download inspect dev subsample qc integrate annotate phase1 phase1-dev export genesets proportions de phase2 classify classify-quick test clean-processed
+.PHONY: help mock download inspect dev subsample qc integrate annotate phase1 phase1-dev export genesets proportions de phase2 classify classify-quick poolcheck all test clean-processed
 
 help:
 	@echo "make mock       - build a small fake dataset and run the pipeline on it (no download)"
@@ -22,6 +22,8 @@ help:
 	@echo "make phase2     - export, proportions and de"
 	@echo "make classify   - phase 3: donor-level classifier + stress tests (needs make export)"
 	@echo "make classify-quick - phase 3 with 1 CV repeat and 10 permutations (trial run)"
+	@echo "make poolcheck  - phase 4: within-10x-library check; fills the README pool section"
+	@echo "make all        - everything after download: subsample, phase 1, phase 2, classifier, pool check"
 	@echo "make test       - run the test suite"
 
 mock:
@@ -79,6 +81,11 @@ classify:
 
 classify-quick:
 	$(PY) scripts/09_classifier.py --config $(CONFIG) --quick
+
+poolcheck:
+	$(PY) scripts/10_pool_check.py --config $(CONFIG)
+
+all: subsample phase1 phase2 classify poolcheck
 
 test:
 	$(PY) -m pytest -q

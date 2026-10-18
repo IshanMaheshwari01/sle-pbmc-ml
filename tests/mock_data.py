@@ -35,7 +35,10 @@ CT_PROBS = np.array([0.38, 0.14, 0.2, 0.05, 0.12, 0.1, 0.01])
 CT_PROBS_SLE = np.array([0.28, 0.14, 0.30, 0.05, 0.12, 0.1, 0.01])
 
 
-def build_mock(n_sle: int = 12, n_healthy: int = 8, n_genes: int = 300, seed: int = 0) -> ad.AnnData:
+def build_mock(n_sle: int = 12, n_healthy: int = 8, n_genes: int = 300, seed: int = 0,
+               pooled: bool = False) -> ad.AnnData:
+    """pooled=True puts several donors into each 10x library (as in the real
+    multiplexed design); otherwise every sample gets its own library."""
     rng = np.random.default_rng(seed)
     rows = []
     donors = [(f"SLE_{i:03d}", "systemic lupus erythematosus") for i in range(n_sle)] + [
@@ -69,7 +72,7 @@ def build_mock(n_sle: int = 12, n_healthy: int = 8, n_genes: int = 300, seed: in
                             disease=disease,
                             disease_state=state,
                             Processing_Cohort=batch,
-                            library_uuid=f"lib{lib_counter:04d}",
+                            library_uuid=(f"b{batch}_pool{d_idx % 3}" if pooled else f"lib{lib_counter:04d}"),
                             self_reported_ethnicity=ancestry,
                             sex=sex,
                             cell_type=c,

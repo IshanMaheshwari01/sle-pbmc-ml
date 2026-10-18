@@ -1,129 +1,137 @@
 # Can a blood sample tell you who has lupus?
 
-**Donor-level machine learning and pseudobulk statistics on 1.26 million single PBMCs from 162 lupus patients and 99 healthy controls.**
+**Pseudobulk statistics and donor-level machine learning on 1.26 million single blood cells from 162 lupus patients and 99 healthy controls, built around one question: how much of the accuracy survives once batch, ancestry and 10x pool cannot explain it?**
 
-Systemic lupus erythematosus (SLE) is diagnosed from a mix of symptoms and antibody tests, and it looks different from patient to patient. This project asks two questions of a large single-cell dataset:
+## Results in brief
 
-1. **Can a model separate lupus patients from healthy donors using only their blood immune cells, and does it still work on samples from a processing batch it has never seen?**
-2. **Which cell types carry the signal, and through which genes and pathways?**
+- **Pooled accuracy is inflated by batch.** A classifier on cell-type composition and pseudobulk expression reaches **AUROC 0.99**, but batch + ancestry alone already score **0.87**, and the same features identify the processing batch of *healthy* donors perfectly (AUROC 1.00).
+- **The honest number is 0.92.** Within the one batch with balanced groups (52 lupus vs 44 healthy), where batch cannot help, the L1 logistic model scores **AUROC 0.92 (95% CI 0.86–0.97)**, against 0.49 for shuffled labels (permutation p = 0.0099, the minimum for 100 permutations).
+- **The interferon signature is in every immune cell type.** Interferon-α and interferon-γ response are the top Hallmark pathways in all nine cell types tested (FDR < 10⁻⁴). This is shown at the donor level, adjusted for batch and ancestry, and confirmed by limma-voom and DESeq2 (fold-change correlation 0.86–0.97).
+- **The model is not just an interferon detector.** A third of the lupus patients (47 of 143) are interferon-low. Within the balanced batch, an interferon-only score cannot find them (AUROC 0.55), while the full model still does (**0.86**).
+- **Composition shifts in lupus blood:** fewer CD4 T cells (odds ratio 0.54) and plasmacytoid DCs (0.56), more classical monocytes (1.80). Within "CD8 T cells", the strongest down-regulated genes are MAIT-cell markers (SLC4A10, ZBTB16, KLRB1, CCR6), pointing to MAIT-cell loss.
 
-The headline is not the accuracy number. It is whether that number survives the checks that most single-cell ML papers skip: grouping by donor, holding out whole batches, and testing whether batch, ancestry or sex alone can predict the label.
+![Classifier accuracy pooled and within batch / ancestry](results/figures/09_auroc_by_setting.png)
 
-## Data
+## The problem with this dataset
 
-Perez et al. 2022, *Science* ([PMC9297655](https://pmc.ncbi.nlm.nih.gov/articles/PMC9297655)), downloaded from [CELLxGENE](https://cellxgene.cziscience.com/collections/436154da-bcf1-4130-9c8b-120ff9a888f2) (also GEO [GSE174188](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE174188)).
+Perez et al. 2022 (*Science*) profiled 1,263,676 PBMCs with multiplexed 10x 3′ v2, in 23 pools over 4 processing batches. The phase-0 audit (`results/reports/01_data_audit.md`) found disease status tangled up with everything else:
 
-| | |
-|---|---|
-| Cells | 1,263,676 PBMCs after the authors' QC and doublet removal |
-| People | 162 SLE patients, 99 healthy controls; European and Asian ancestry, mostly women |
-| Design | Multiplexed 10x 3′ v2 in 23 pools over 4 processing batches, with technical replicates and some flare → post-treatment pairs |
-| File | One 12.2 GB `.h5ad`; raw counts in `raw/X` |
-
-Genotypes for this cohort are controlled-access (dbGaP) and are **not** used.
-
-## Why this is harder than it looks
-
-| Trap | What goes wrong | What this repo does |
+| Variable | What the audit found | How the project handles it |
 |---|---|---|
-| Cells treated as replicates | Hundreds of thousands of "samples" give tiny p-values for effects driven by a handful of people | All statistics are on **pseudobulk** profiles: one per sample × cell type |
-| Same person on both sides of a CV split | Technical replicates and flare/treated pairs leak identity into the test set | Every split is **grouped by donor** |
-| Batch, ancestry or sex tracks disease | The model learns the batch, not lupus | Audit in phase 0 (it does, see below); **within-batch** and **European-only** evaluation plus a **covariate-only baseline** in phase 3 |
-| Thinning cells for speed | Fewer cells per sample means noisier pseudobulk | Pseudobulk uses **all** 1.26M cells; only the cell-level object is subsampled |
+| Processing batch | Batch 1: 0 lupus / 28 healthy donors. Batch 2: 88 / 1. 54 samples sequenced in two batches | Batch in every model; evaluation **within** batches that hold both groups; cross-batch replicates kept as separate profiles; covariate-only baseline |
+| Ancestry | Asian donors 83 lupus / 24 healthy; European 75 / 74 | Ancestry in every model; per-ancestry evaluation; 5 donors in very small groups left out |
+| Sex | 15 of 17 men have lupus | Women only (239 donors: 143 lupus, 96 healthy) |
+| 10x pool | Several donors per library | Within-library evaluation (below) |
+| Repeated samples | Technical replicates; flare and post-treatment samples of the same patient | One sample per donor; all CV splits grouped by donor; `duplicateCorrelation` for replicates |
 
-## What the data audit found
+## Results
 
-`make inspect` (full report in `results/reports/01_data_audit.md`) confirmed 1,263,676 cells, 261 donors (162 SLE, 99 healthy) and 274 samples, with integer raw counts. It also showed that disease status is badly confounded with other variables:
+### 1. Interferon signalling is raised across the immune system
 
-| Variable | Finding (donors) | Consequence |
+![Hallmark pathways by cell type](results/figures/08_pathways_heatmap.png)
+
+Pseudobulk limma-voom per cell type, `expression ~ disease + batch + ancestry`, with replicates handled by `duplicateCorrelation` on donor. Interferon-α and -γ response top every cell type. The six interferon-score genes (IFI27, IFI44L, IFIT1, ISG15, RSAD2, SIGLEC1) are 2–7 fold higher in lupus in T cells, B cells, NK cells and monocytes alike. DESeq2 on one profile per sample agrees closely: fold-change correlation 0.86–0.97, and 68–82% of limma's significant genes are also significant in DESeq2. Tables: `results/reports/08_differential_expression.md`.
+
+### 2. Lupus blood has a different cell mix
+
+![Cell-type proportions](results/figures/07_proportions_forest.png)
+
+Proportions use all 1.26M cells, modelled per sample on the logit scale with limma (the propeller approach). The CD4 T-cell and pDC losses and the monocyte expansion agree with the original paper. The B-cell result (odds ratio 0.68) appears only after batch adjustment, since raw percentages are near identical, so it is reported as model-dependent.
+
+### 3. The classifier, and what is left once batch cannot help
+
+| Model | Pooled | Batch 4 only (52 vs 44) | Batch 3 only (15 vs 16) | Batch 2 only (106 vs 22) |
+|---|---|---|---|---|
+| Batch + ancestry only | 0.87 | n/a | n/a | n/a |
+| Interferon score only | 0.88 | 0.78 | 0.95 | 0.83 |
+| Cell-type proportions only | 0.90 | 0.84 | 0.91 | 0.98 |
+| **L1 logistic, all features** | **0.99** | **0.92** | 1.00 | 1.00 |
+| Gradient boosting, all features | 0.99 | 0.93 | 1.00 | 1.00 |
+| Random forest, all features | 0.98 | 0.89 | 0.99 | 0.99 |
+
+- **Features:** cell-type composition (centred log-ratio) and pseudobulk log-CPM for seven cell types. The 1,000 most variable genes per cell type are chosen inside each training fold.
+- **Validation:** 5-fold CV grouped by donor, repeated 5 times; the L1 penalty is tuned in an inner grouped CV.
+
+Batch 4 is the reference result: it is the only batch with balanced groups. The perfect scores in batches 2 and 3 are why the pool check below exists.
+
+### 4. Finding lupus without the interferon signature
+
+![Predictions by interferon status](results/figures/09_predictions_by_ifn_status.png)
+
+A lupus donor counts as interferon-high when their monocyte interferon score is more than 2 SD above healthy donors of the same batch: 96 donors are IFN-high and 47 IFN-low. Within batch 4, the interferon-only score separates IFN-low patients from healthy donors no better than chance (0.55), while the full model reaches 0.86. Composition carries much of that (0.78 from proportions alone), together with expression changes outside the interferon pathway: lower MAIT-cell markers in CD8 T cells, and CD70 in CD4 T cells.
+
+### 5. Pool check: same batch, same 10x library
+
+<!-- POOL_CHECK_START -->
+
+Comparing only lupus and healthy samples **run in the same 10x library** (so neither batch nor library can help), the classifier's AUROC is **0.97** (95% CI 0.95-0.98, 3,324 pairs). The signal holds: the model separates lupus from healthy samples run in the same 10x library.
+
+| Setting | Libraries (with both groups) | Samples with a same-library partner | Cramér's V, library × diagnosis | Within-library AUROC, model | Within-library, IFN only | Ordinary AUROC, model |
+|---|---|---|---|---|---|---|
+| Batch 1.0 | 12 (0) | 0% |  |  |  |  |
+| Batch 2.0 | 40 (36) | 93% | 0.18 | 1.00 | 0.87 | 1.00 |
+| Batch 3.0 | 12 (12) | 100% | 0.13 | 1.00 | 0.98 | 0.98 |
+| Batch 4.0 | 24 (24) | 100% | 0.09 | 0.92 | 0.83 | 0.92 |
+| All batches | 88 (72) | 82% | 0.53 | 0.97 | 0.86 | 0.98 |
+
+_Filled in by `make poolcheck`; details in `results/reports/10_pool_check.md`._
+
+<!-- POOL_CHECK_END -->
+
+### 6. Integration and annotation (phase 1)
+
+- **Integration benchmark:** on the scib-metrics benchmark Harmony scored highest (0.72 vs 0.65 for scVI and 0.61 uncorrected), mainly through batch mixing.
+- **Disease structure:** a disease-signal check within batch 4 showed neither method erased disease structure (classical monocytes: 1.25 / 1.25 / 1.29 enrichment of same-diagnosis neighbours from other donors).
+- **How the embeddings are used:** for visualisation and annotation only. All statistics and models use uncorrected pseudobulk counts with batch as a covariate, because with this much confounding, batch correction can remove disease signal.
+- **Annotation:** CellTypist agreed with the author labels for 92% of cells. The disagreements are informative: the authors' "lymphocyte" label is mostly cycling and regulatory T cells, and a third of conventional DCs sit with monocytes, the known DC2/monocyte overlap.
+
+## What this does not show
+
+- **Treatment.** Most lupus donors have "managed" disease and are on medication, which the dataset does not record. Some signals may be drug effects; for example, glucocorticoids suppress NF-κB signalling and shift monocyte and lymphocyte counts.
+- **External validation.** Everything is cross-validated inside one cohort. A second lupus cohort is the real test.
+- **Ancestry columns still contain batch,** so they are a weaker check than within-batch evaluation.
+- **Diagnosis, not prognosis.** The model separates established lupus from health. It says nothing about early or undiagnosed disease.
+
+## How it was built
+
+| Phase | Scripts | What it does |
 |---|---|---|
-| Processing batch | Batch 1: 0 SLE / 28 healthy. Batch 2: 88 SLE / 1 healthy. Only batches 3 and 4 contain both groups; 54 samples were run in more than one batch | Batch alone nearly predicts disease. Leave-one-batch-out is impossible (batches 1 and 2 have one class). Evaluation has to happen within batches that contain both groups, and cross-batch replicates are kept as separate profiles to estimate the batch effect |
-| Ancestry | Asian: 83 SLE / 24 healthy. European: 75 / 74. Three African American and two Hispanic donors | Ancestry-linked expression could pass for disease signal. European donors form a nearly balanced test set; the five donors in small groups are left out of the models |
-| Sex | 15 of 17 men have SLE | Sex-chromosome genes would predict disease in men. Models use female donors only (97 healthy, 147 SLE) |
+| 0. Data | `00_download.py`, `01_inspect.py`, `02_subsample.py` | Resumable 12 GB download; confounding audit; one streaming pass (memory set by block size, not file size) writing a 300-cell-per-sample subsample and pseudobulk over **all** cells, with cross-batch replicates kept apart |
+| 1. Single cell | `03_qc.py`, `04_integrate.py`, `05_annotate.py` | Per-batch MAD-based QC; Harmony vs scVI (GPU) with scib-metrics plus a disease-signal check; interferon score; CellTypist with majority voting |
+| 2. Statistics (R) | `06_export_pseudobulk.py`, `R/07_proportions.R`, `R/08_differential_expression.R` | Cohort rules applied once; propeller-style proportions; limma-voom + `duplicateCorrelation`, DESeq2 check, cameraPR on MSigDB Hallmark |
+| 3. Classifier | `09_classifier.py` | Nested, donor-grouped CV; three baselines; within-batch and per-ancestry AUROC with bootstrap CIs; batch detectability; 100-run permutation null; IFN-low analysis; held-out block importance |
+| 4. Checks | `10_pool_check.py` | Within-10x-library AUROC; how mixed each batch's libraries are |
 
-The project's main question is therefore no longer just "how accurate is the classifier?" but "how much of its accuracy survives once batch, ancestry and sex can't explain it?"
+Every phase has end-to-end tests on a mock dataset with the real file's layout. The mock plants known effects (an interferon signal in lupus monocytes, a composition shift, a batch effect), and the tests check that each is recovered and that nothing is found where nothing was planted.
 
-## Roadmap
-
-- [x] **Phase 0: data.** Resumable download, data audit (design, confounding, count check), one streaming pass that writes a cell-level subsample and full pseudobulk.
-- [ ] **Phase 1: single-cell processing (Python).** Code ready (`make phase1`):
-  - `03_qc.py`: per-batch adaptive QC check (median ± MADs). Doublet detection is not re-run, because it needs whole 10x lanes, not a 300-cell-per-sample subsample; the authors already removed doublets with freemuxlet and Scrublet.
-  - `04_integrate.py`: HVGs ranked across batches, then three embeddings (uncorrected PCA, **Harmony**, **scVI**) compared with **scib-metrics** *and* with a disease-signal check, because with this much confounding a high batch-mixing score can mean lupus and healthy cells were blended together. Also a six-gene type I interferon score per donor, tested within batches.
-  - `05_annotate.py`: **CellTypist** (`Immune_All_Low`) against the author labels, with lineage-level agreement and finer subsets.
-  - Integrated embeddings are used only for visualisation, clustering and annotation; phases 2–3 work on pseudobulk raw counts with batch as a covariate.
-- [ ] **Phase 2: statistics (R).** Code ready (`make phase2`):
-  - `06_export_pseudobulk.py` writes the pseudobulk counts (from all 1.26M cells) for R and fixes the cohort once: women only, ancestry groups with at least 10 donors, one biological sample per donor.
-  - `R/07_proportions.R`: cell-type proportions per sample, logit-transformed and modelled with **limma** (the propeller approach), adjusted for batch and ancestry.
-  - `R/08_differential_expression.R`: pseudobulk DE per cell type with **limma-voom**, adjusted for batch and ancestry. A sample sequenced in two batches gives two profiles, handled with `duplicateCorrelation` blocked on donor. **DESeq2** is run as a second method. **Hallmark** pathways are tested with limma's `cameraPR`.
-  - Tests plant a composition shift and an interferon signal in a mock and check both are recovered, and that nothing is called where nothing was planted.
-- [ ] **Phase 3: donor-level ML.** Code ready (`make classify`), `scripts/09_classifier.py`:
-  - **Features** per sample: cell-type composition (centred log-ratio) and pseudobulk log-CPM for seven major cell types. The 1,000 most variable genes per cell type are picked **inside each training fold**, as are imputation and scaling.
-  - **Models:** L1 logistic regression (penalty tuned in an inner grouped CV), random forest and gradient boosting, against three baselines: batch + ancestry only, cell-type proportions only, and a six-gene interferon score only.
-  - **Validation:** 5-fold CV grouped by donor, stratified, repeated 5 times. AUROC with donor-bootstrap 95% CIs.
-  - **Stress tests:**
-    - accuracy **within each batch** that has both groups, and **within each ancestry**, where those variables cannot help
-    - how well the same features identify batch among healthy donors alone
-    - a 100-run label-permutation null
-    - whether the model finds lupus patients **without** a high interferon signature
-    - which feature blocks it relies on (held-out permutation importance)
-- [ ] **Phase 4: write-up.** End-to-end `make all`, a Quarto report, and a one-page summary of findings and limitations.
-- [ ] *Stretch:* flare vs managed disease, within lupus patients only.
-
-## Quickstart
+## Reproduce
 
 ```bash
-mamba env create -f envs/python.yml && conda activate sle-py
-pip install -e .
+mamba create -n sle-py python=3.11 -y && conda activate sle-py
+pip install -e ".[phase1]" pytest            # PyTorch with CUDA comes with scvi-tools
+sudo apt install -y r-base-core r-bioc-limma r-bioc-edger r-bioc-deseq2 r-cran-ggplot2 r-cran-yaml r-cran-matrix
 
-make test        # 23 tests on a fake dataset with the real file's layout (seconds)
-make mock        # run the whole phase-0 pipeline on that fake dataset
-
-make download    # 12.2 GB from CELLxGENE; resumes if interrupted
-make inspect     # writes results/reports/01_data_audit.md - read it before anything else
-make dev         # tiny subsample (40 cells/sample) for writing phase-1 code quickly
-make subsample   # full run: 500 cells/sample + pseudobulk over every cell
+make test         # 26 tests on mock data, ~3 min
+make download     # 12.2 GB from CELLxGENE, resumable
+make inspect      # confounding audit: read this first
+make genesets     # MSigDB Hallmark gene sets
+make all          # subsample -> phase 1 -> phase 2 -> classifier -> pool check
 ```
 
-Phase 1 needs extra packages: `pip install -e ".[phase1]"`. Check the GPU is visible with `python -c "import torch; print(torch.cuda.is_available())"`. Run `make phase1-dev` first (tiny subsample, a few minutes) to catch problems, then `make phase1`. CellTypist downloads its model on first use.
-
-Phase 2 needs R with limma, edgeR, DESeq2 and ggplot2 (see `envs/r.yml`; on Ubuntu/WSL one `apt install` line). Run `make genesets` once, then `make phase2`.
-
-Have about 15 GB free disk for the raw file and outputs. `make subsample` needs roughly 5 GB of RAM at peak with the default settings (fine on a 16 GB laptop); lower `subsample.max_cells_per_sample` or `subsample.block_size` in `config/config.yaml` if memory is tight. Phase 1 (scVI) is much faster on an NVIDIA GPU; free Colab or Kaggle GPUs work if you don't have one.
-
-## Outputs of phase 0
-
-| File | Contents |
-|---|---|
-| `results/reports/01_data_audit.md` | Cells, donors, samples; disease × batch / ancestry / sex tables; technical replicates; cell-type mix |
-| `results/reports/01_samples.csv` | One row per sample: donor, disease, cells, libraries, batches |
-| `data/processed/cells_subsample.h5ad` | Raw counts for every sample, ≤ 500 cells each; `layers["counts"]` kept for scVI |
-| `data/processed/cells_dev.h5ad` | Same, ≤ 40 cells per sample |
-| `data/processed/pseudobulk_sample_celltype.h5ad` | Summed raw counts per sample × batch × cell type over all cells, with `profile_id`, `sample_id`, `donor`, covariates, `n_cells`, `n_libraries`, and a `low_cell_count` flag |
-
-## Design notes
-
-- **Sample definition.** A sample is `donor_id × disease_state`, so a flare and a post-treatment sample from the same patient are two samples of one donor. Set in `config/config.yaml` (`sample_key`).
-- **Technical replicates.** Libraries from the same sample *within* a batch are summed. Replicates in *different* batches are kept as separate pseudobulk profiles (`pseudobulk.split_by: ["Processing_Cohort"]`), because with batch this confounded with disease, the same sample measured in two batches is the cleanest information there is about the batch effect. Each profile carries `profile_id` (sample × batch) and `sample_id` (sample); models group by donor. Set `split_by: []` to sum everything instead.
-- **Streaming reader** (`src/sle_pbmc/h5ad_stream.py`). AnnData's backed mode does not handle `.raw` well, so the 12 GB file is read straight from HDF5 in contiguous row blocks. Memory depends on the block size, not the file size.
-- **All column names live in the config.** If CELLxGENE renames a field in a later release, `make inspect` lists the closest matches and only the config changes.
+Hardware used: a laptop with 7.4 GB RAM available to WSL and an RTX 4050 (6 GB). Peak RAM is about 5 GB. Approximate times: subsample 1.5 min, phase 1 about 25 min (scVI 10 min on the GPU), phase 2 about 1 hour (mostly DESeq2), classifier 15 min, pool check a few minutes.
 
 ## Repository layout
 
 ```
-config/       config.yaml (real data), mock.yaml (fake data), phase1/2/3.yaml (parameters)
-envs/         python.yml, r.yml
-scripts/      00_download.py, 01_inspect.py, 02_subsample.py   (phase 0)
-              03_qc.py, 04_integrate.py, 05_annotate.py          (phase 1)
-              06_export_pseudobulk.py                            (phase 2, hands data to R)
-              09_classifier.py                                   (phase 3)
-src/sle_pbmc/ streaming h5ad reader, sampling, pseudobulk, phase-1 and phase-3 helpers, figure style
-tests/        mock dataset builder + end-to-end tests for phases 0-3
-R/            phase 2 statistics: common.R, 07_proportions.R, 08_differential_expression.R
-notebooks/    phase 3 analysis (to come)
-data/         raw/ and processed/ (git-ignored)
-results/      reports and figures
+config/       config.yaml (paths, columns, subsampling), phase1/2/3.yaml (analysis parameters), mock.yaml
+scripts/      00-10, one script per step (Python)
+R/            phase-2 statistics
+src/sle_pbmc/ streaming h5ad reader, sampling and pseudobulk, phase-1 and phase-3 helpers, figure style
+tests/        mock data builder and end-to-end tests for every phase
+results/      reports/ (markdown + csv for every step) and figures/
+envs/         conda environments
 ```
 
-## Citation
+## Data and citation
 
-Perez RK, Gordon MG, Subramaniam M, et al. Single-cell RNA-seq reveals cell type–specific molecular and genetic associations to lupus. *Science* 376, eabf1970 (2022).
+Perez RK, Gordon MG, Subramaniam M, et al. Single-cell RNA-seq reveals cell type–specific molecular and genetic associations to lupus. *Science* 376, eabf1970 (2022). Data from [CELLxGENE](https://cellxgene.cziscience.com/collections/436154da-bcf1-4130-9c8b-120ff9a888f2) (also GEO GSE174188). Genotypes are controlled-access and were not used.

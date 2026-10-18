@@ -399,7 +399,7 @@ def main() -> None:
         L.append("\n" + tab.round(3).to_markdown(index=False))
         L.append("\nDonors sequenced in more than one batch (technical replicates) appear in each of those "
                  "batch rows, which is what puts healthy donors into batch 2. The pooled row mixes the "
-                 "disease effect with the batch effect; the within-batch rows are the honest ones.")
+                 "disease effect with the batch effect; the within-batch rows are the ones to trust.")
     L.append("\n## Figures\n")
     for f in (f1, f2, f3):
         if f is not None:

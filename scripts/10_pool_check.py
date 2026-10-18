@@ -224,16 +224,16 @@ def main() -> None:
             for s, r in b.iterrows():
                 f = lambda v: "" if pd.isna(v) else f"{v:.2f}"  # noqa: E731
                 cv = f(r[CRAMER])
-                lines.append(f"| {s} | {r['libraries']} ({r['libraries with both groups']}) | "
+                lines.append(f"| {str(s).replace('.0', '')} | {r['libraries']} ({r['libraries with both groups']}) | "
                              f"{r['% units with an opposite-group partner']:.0f}% | {cv} | "
                              f"{f(r['within-library AUROC (model)'])} | {f(r['within-library AUROC (IFN only)'])} | "
                              f"{f(r['ordinary AUROC (model)'])} |")
             block = "\n".join([START, "",
-                               f"Comparing only lupus and healthy samples **run in the same 10x library** "
-                               f"(so neither batch nor library can help), the classifier's AUROC is **{w:.2f}** "
+                               f"Comparing only lupus and healthy samples run in the same 10x library "
+                               f"(so neither batch nor library can help), the classifier's AUROC is {w:.2f} "
                                f"(95% CI {overall['model 95% CI']}, {overall['pairs compared']:,} pairs). "
                                f"The signal {verdict(w)}.", "", *lines, "",
-                               "_Filled in by `make poolcheck`; details in `results/reports/10_pool_check.md`._",
+                               "This section is filled in by `make poolcheck`. Details are in `results/reports/10_pool_check.md`.",
                                "", END])
             txt = re.sub(re.escape(START) + r".*?" + re.escape(END), lambda _: block, readme.read_text(), flags=re.S)
             readme.write_text(txt)
@@ -241,8 +241,8 @@ def main() -> None:
         summary = Path(args.summary)
         s0, s1 = "<!-- POOL_SENTENCE_START -->", "<!-- POOL_SENTENCE_END -->"
         if summary.exists() and s0 in summary.read_text():
-            sentence = (f"**Same batch, same 10x library:** comparing only SLE and healthy samples run in the "
-                        f"same library, AUROC is **{w:.2f}** (95% CI {overall['model 95% CI']}), so the signal "
+            sentence = (f"Same batch, same 10x library: comparing only SLE and healthy samples run in the "
+                        f"same library, AUROC is {w:.2f} (95% CI {overall['model 95% CI']}), so the signal "
                         f"{verdict(w).split(':')[0]}.")
             txt = re.sub(re.escape(s0) + r".*?" + re.escape(s1), lambda _: s0 + sentence + s1,
                          summary.read_text(), flags=re.S)

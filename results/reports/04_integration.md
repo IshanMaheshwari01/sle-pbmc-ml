@@ -54,7 +54,7 @@ Six-gene type I IFN score (Rice et al. 2013) from log-normalised expression, med
 | 4.0                     |           52 |               44 |        0.028 |           -0.243 |   0.785 | < 1e-4             |
 | all (one row per donor) |          161 |               98 |        0.2   |           -0.268 |   0.84  | < 1e-4             |
 
-Donors sequenced in more than one batch (technical replicates) appear in each of those batch rows, which is what puts healthy donors into batch 2. The pooled row mixes the disease effect with the batch effect; the within-batch rows are the honest ones.
+Donors sequenced in more than one batch (technical replicates) appear in each of those batch rows, which is what puts healthy donors into batch 2. The pooled row mixes the disease effect with the batch effect; the within-batch rows are the ones to trust.
 
 ## Figures
 

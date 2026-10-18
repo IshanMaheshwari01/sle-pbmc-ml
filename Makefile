@@ -1,7 +1,8 @@
 PY      ?= python
 CONFIG  ?= config/config.yaml
+RSCRIPT ?= Rscript
 
-.PHONY: help mock download inspect dev subsample qc integrate annotate phase1 phase1-dev test clean-processed
+.PHONY: help mock download inspect dev subsample qc integrate annotate phase1 phase1-dev export genesets proportions de phase2 test clean-processed
 
 help:
 	@echo "make mock       - build a small fake dataset and run the pipeline on it (no download)"
@@ -14,6 +15,11 @@ help:
 	@echo "make annotate   - phase 1: CellTypist check of the author labels"
 	@echo "make phase1     - all three phase-1 steps"
 	@echo "make phase1-dev - all three on the tiny dev subsample (quick trial run)"
+	@echo "make export     - phase 2: write pseudobulk counts + cohort for R"
+	@echo "make genesets   - phase 2: download MSigDB Hallmark gene sets (if msigdbr is unavailable)"
+	@echo "make proportions - phase 2: cell-type proportions, lupus vs healthy (R)"
+	@echo "make de         - phase 2: pseudobulk differential expression + pathways (R)"
+	@echo "make phase2     - export, proportions and de"
 	@echo "make test       - run the test suite"
 
 mock:
@@ -48,6 +54,23 @@ phase1-dev:
 	$(PY) scripts/03_qc.py --config $(CONFIG) --dev
 	$(PY) scripts/04_integrate.py --config $(CONFIG) --dev --max-epochs 20
 	$(PY) scripts/05_annotate.py --config $(CONFIG) --dev
+
+export:
+	$(PY) scripts/06_export_pseudobulk.py --config $(CONFIG)
+
+GMT_URL ?= https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2024.1.Hs/h.all.v2024.1.Hs.symbols.gmt
+genesets:
+	mkdir -p data/genesets
+	curl -fL -o data/genesets/h.all.symbols.gmt "$(GMT_URL)"
+	@echo "Set enrichment.gmt: data/genesets/h.all.symbols.gmt in config/phase2.yaml to use it."
+
+proportions:
+	$(RSCRIPT) R/07_proportions.R
+
+de:
+	$(RSCRIPT) R/08_differential_expression.R
+
+phase2: export proportions de
 
 test:
 	$(PY) -m pytest -q

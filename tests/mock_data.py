@@ -32,6 +32,7 @@ CELL_TYPES = [
     "plasmacytoid dendritic cell",
 ]
 CT_PROBS = np.array([0.38, 0.14, 0.2, 0.05, 0.12, 0.1, 0.01])
+CT_PROBS_SLE = np.array([0.28, 0.14, 0.30, 0.05, 0.12, 0.1, 0.01])
 
 
 def build_mock(n_sle: int = 12, n_healthy: int = 8, n_genes: int = 300, seed: int = 0) -> ad.AnnData:
@@ -57,7 +58,9 @@ def build_mock(n_sle: int = 12, n_healthy: int = 8, n_genes: int = 300, seed: in
                 lib_counter += 1
                 batch = str(1 + (d_idx + lib) % 4)
                 n = int(rng.integers(30, 160))
-                ct = rng.choice(CELL_TYPES, size=n, p=CT_PROBS)
+                # lupus shifts composition: more classical monocytes, fewer CD4 T cells
+                probs = CT_PROBS_SLE if disease != "normal" else CT_PROBS
+                ct = rng.choice(CELL_TYPES, size=n, p=probs)
                 for c in ct:
                     rows.append(
                         dict(

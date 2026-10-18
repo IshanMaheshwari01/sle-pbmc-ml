@@ -1,23 +1,20 @@
-# mamba env create -f envs/r.yml && conda activate sle-r
-# Phase 2 (pseudobulk statistics) runs in R.
+# Phase 2 (pseudobulk statistics) runs in R. Two ways to get it:
+#
+#   On Ubuntu / WSL (simplest; these exact packages are what the tests ran on):
+#     sudo apt install -y r-base-core r-bioc-limma r-bioc-edger r-bioc-deseq2 \
+#                         r-cran-ggplot2 r-cran-yaml r-cran-matrix
+#
+#   Or with conda:  mamba env create -f envs/r.yml && conda activate sle-r
 name: sle-r
 channels:
   - conda-forge
   - bioconda
 dependencies:
-  - r-base=4.4
-  - r-tidyverse
+  - r-base>=4.3
+  - r-matrix
   - r-yaml
-  - r-lme4
-  - bioconductor-zellkonverter      # read .h5ad into SingleCellExperiment
-  - bioconductor-singlecellexperiment
-  - bioconductor-deseq2
-  - bioconductor-edger
-  - bioconductor-limma
-  - bioconductor-variancepartition  # dream(): donor random effect for repeated samples
-  - bioconductor-speckle            # propeller(): cell-type proportion testing
-  - bioconductor-fgsea
-  - bioconductor-msigdbr
   - r-ggplot2
-  - r-pheatmap
-  - quarto
+  - r-msigdbr                 # optional: gene sets without `make genesets`
+  - bioconductor-limma
+  - bioconductor-edger
+  - bioconductor-deseq2

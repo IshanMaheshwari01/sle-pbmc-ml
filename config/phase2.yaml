@@ -1,0 +1,45 @@
+# ---------------------------------------------------------------------------
+# Phase 2 parameters: cell-type proportions and pseudobulk differential
+# expression (R). The input is the pseudobulk object from phase 0, built from
+# all 1.26M cells. scripts/06_export_pseudobulk.py writes it out in a form R
+# reads directly, together with these settings.
+# ---------------------------------------------------------------------------
+
+cohort:
+  # The audit showed 15 of 17 men have lupus, so sex would stand in for
+  # disease. The primary analysis uses women only.
+  sexes: ["female"]
+  # Ancestry groups with fewer donors than this are left out (3 African
+  # American and 2 Hispanic donors in this cohort); ancestry stays in the model.
+  min_ancestry_donors: 10
+  # One biological sample per donor for the lupus-vs-healthy comparison. A
+  # donor with several time points contributes the first state in this list.
+  state_priority: ["na", "managed", "flare", "treated"]
+
+model:
+  # Fixed covariates next to disease. A sample's technical replicates in
+  # different batches are separate profiles; the correlation between them is
+  # handled with limma's duplicateCorrelation, blocked on donor.
+  covariates: ["batch", "ancestry"]
+
+proportions:
+  min_cells_per_profile: 200   # profiles (sample x batch) with fewer cells in total are dropped
+
+de:
+  min_cells: 10                # a sample x cell-type profile needs this many cells
+  min_profiles_per_group: 10   # cell types with fewer lupus or healthy profiles are skipped
+  fdr: 0.05
+  min_abs_logfc: 0.5           # for the "notable" gene counts; all genes are reported
+  run_deseq2: true             # second method as a robustness check (slower)
+
+enrichment:
+  # MSigDB Hallmark gene sets, tested with limma's cameraPR on the moderated
+  # t-statistics (a competitive test that allows for correlation between
+  # genes). Read from `gmt` (fetch it with `make genesets`); if that file is
+  # missing, the msigdbr R package is used when installed.
+  collection: "H"
+  gmt: "data/genesets/h.all.symbols.gmt"
+  fdr: 0.05
+  min_set_size: 10             # gene sets with fewer genes left after filtering are skipped
+
+ifn_genes: ["IFI27", "IFI44L", "IFIT1", "ISG15", "RSAD2", "SIGLEC1"]

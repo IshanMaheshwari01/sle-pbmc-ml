@@ -51,7 +51,11 @@ The project's main question is therefore no longer just "how accurate is the cla
   - `04_integrate.py`: HVGs ranked across batches, then three embeddings (uncorrected PCA, **Harmony**, **scVI**) compared with **scib-metrics** *and* with a disease-signal check, because with this much confounding a high batch-mixing score can mean lupus and healthy cells were blended together. Also a six-gene type I interferon score per donor, tested within batches.
   - `05_annotate.py`: **CellTypist** (`Immune_All_Low`) against the author labels, with lineage-level agreement and finer subsets.
   - Integrated embeddings are used only for visualisation, clustering and annotation; phases 2–3 work on pseudobulk raw counts with batch as a covariate.
-- [ ] **Phase 2: statistics (R).** Cell-type proportion changes per sample (**propeller**). Pseudobulk differential expression per cell type, SLE vs healthy, with **DESeq2** and **limma-voom / dream** (donor as a random effect for repeat samples), adjusted for batch, ancestry and sex; Benjamini–Hochberg FDR. Pathway enrichment with **fgsea** on MSigDB Hallmark. Sanity check: the type I interferon signature reported in lupus should appear, mainly in monocytes.
+- [ ] **Phase 2: statistics (R).** Code ready (`make phase2`):
+  - `06_export_pseudobulk.py` writes the pseudobulk counts (from all 1.26M cells) for R and fixes the cohort once: women only, ancestry groups with at least 10 donors, one biological sample per donor.
+  - `R/07_proportions.R`: cell-type proportions per sample, logit-transformed and modelled with **limma** (the propeller approach), adjusted for batch and ancestry.
+  - `R/08_differential_expression.R`: pseudobulk DE per cell type with **limma-voom**, adjusted for batch and ancestry. A sample sequenced in two batches gives two profiles, handled with `duplicateCorrelation` blocked on donor. **DESeq2** is run as a second method. **Hallmark** pathways are tested with limma's `cameraPR`.
+  - Tests plant a composition shift and an interferon signal in a mock and check both are recovered, and that nothing is called where nothing was planted.
 - [ ] **Phase 3: donor-level ML.** Features from cell-type proportions and per-cell-type pseudobulk expression. Models: L1-logistic regression, random forest, XGBoost. Nested cross-validation with `StratifiedGroupKFold` on donor. AUROC and AUPRC with bootstrap CIs, plus calibration. Stress tests:
   - a **covariate-only baseline** (batch + ancestry, no expression): the score any expression model has to beat
   - performance **within batch 4** (25 SLE vs 41 healthy) and **within batch 3**, where batch cannot explain the prediction
@@ -68,7 +72,7 @@ The project's main question is therefore no longer just "how accurate is the cla
 mamba env create -f envs/python.yml && conda activate sle-py
 pip install -e .
 
-make test        # 7 tests on a fake dataset with the real file's layout (seconds)
+make test        # 17 tests on a fake dataset with the real file's layout (seconds)
 make mock        # run the whole phase-0 pipeline on that fake dataset
 
 make download    # 12.2 GB from CELLxGENE; resumes if interrupted
@@ -78,6 +82,8 @@ make subsample   # full run: 500 cells/sample + pseudobulk over every cell
 ```
 
 Phase 1 needs extra packages: `pip install -e ".[phase1]"`. Check the GPU is visible with `python -c "import torch; print(torch.cuda.is_available())"`. Run `make phase1-dev` first (tiny subsample, a few minutes) to catch problems, then `make phase1`. CellTypist downloads its model on first use.
+
+Phase 2 needs R with limma, edgeR, DESeq2 and ggplot2 (see `envs/r.yml`; on Ubuntu/WSL one `apt install` line). Run `make genesets` once, then `make phase2`.
 
 Have about 15 GB free disk for the raw file and outputs. `make subsample` needs roughly 5 GB of RAM at peak with the default settings (fine on a 16 GB laptop); lower `subsample.max_cells_per_sample` or `subsample.block_size` in `config/config.yaml` if memory is tight. Phase 1 (scVI) is much faster on an NVIDIA GPU; free Colab or Kaggle GPUs work if you don't have one.
 
@@ -101,14 +107,15 @@ Have about 15 GB free disk for the raw file and outputs. `make subsample` needs 
 ## Repository layout
 
 ```
-config/       config.yaml (real data), mock.yaml (fake data), phase1.yaml (phase-1 parameters)
+config/       config.yaml (real data), mock.yaml (fake data), phase1.yaml, phase2.yaml (parameters)
 envs/         python.yml, r.yml
 scripts/      00_download.py, 01_inspect.py, 02_subsample.py   (phase 0)
               03_qc.py, 04_integrate.py, 05_annotate.py          (phase 1)
+              06_export_pseudobulk.py                            (phase 2, hands data to R)
 src/sle_pbmc/ streaming h5ad reader, sampling, pseudobulk, phase-1 helpers, figure style
-tests/        mock dataset builder + end-to-end tests for phases 0 and 1
-notebooks/    phase 1 and 3 analysis (to come)
-R/            phase 2 statistics (to come)
+tests/        mock dataset builder + end-to-end tests for phases 0, 1 and 2
+R/            phase 2 statistics: common.R, 07_proportions.R, 08_differential_expression.R
+notebooks/    phase 3 analysis (to come)
 data/         raw/ and processed/ (git-ignored)
 results/      reports and figures
 ```

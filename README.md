@@ -6,6 +6,7 @@
 
 - **Pooled accuracy is inflated by batch.** A classifier on cell-type composition and pseudobulk expression reaches **AUROC 0.99**, but batch + ancestry alone already score **0.87**, and the same features identify the processing batch of *healthy* donors perfectly (AUROC 1.00).
 - **The honest number is 0.92.** Within the one batch with balanced groups (52 lupus vs 44 healthy), where batch cannot help, the L1 logistic model scores **AUROC 0.92 (95% CI 0.86–0.97)**, against 0.49 for shuffled labels (permutation p = 0.0099, the minimum for 100 permutations).
+- **Not a 10x-pool artefact.** Libraries are well mixed within batches (Cramér's V 0.09–0.19), and comparing only lupus and healthy samples run in the *same* 10x library gives AUROC **0.97** overall (95% CI 0.95–0.98) and 0.92 in batch 4, unchanged from the unrestricted score.
 - **The interferon signature is in every immune cell type.** Interferon-α and interferon-γ response are the top Hallmark pathways in all nine cell types tested (FDR < 10⁻⁴). This is shown at the donor level, adjusted for batch and ancestry, and confirmed by limma-voom and DESeq2 (fold-change correlation 0.86–0.97).
 - **The model is not just an interferon detector.** A third of the lupus patients (47 of 143) are interferon-low. Within the balanced batch, an interferon-only score cannot find them (AUROC 0.55), while the full model still does (**0.86**).
 - **Composition shifts in lupus blood:** fewer CD4 T cells (odds ratio 0.54) and plasmacytoid DCs (0.56), more classical monocytes (1.80). Within "CD8 T cells", the strongest down-regulated genes are MAIT-cell markers (SLC4A10, ZBTB16, KLRB1, CCR6), pointing to MAIT-cell loss.
@@ -52,7 +53,7 @@ Proportions use all 1.26M cells, modelled per sample on the logit scale with lim
 - **Features:** cell-type composition (centred log-ratio) and pseudobulk log-CPM for seven cell types. The 1,000 most variable genes per cell type are chosen inside each training fold.
 - **Validation:** 5-fold CV grouped by donor, repeated 5 times; the L1 penalty is tuned in an inner grouped CV.
 
-Batch 4 is the reference result: it is the only batch with balanced groups. The perfect scores in batches 2 and 3 are why the pool check below exists.
+Batch 4 is the reference result: it is the only batch with balanced groups. The near-perfect scores in batches 2 and 3 are not 10x-pool artefacts (section 5). A likely reason batch 4 is harder: its lupus patients have the weakest interferon signature of the three batches (median monocyte IFN score 0.03, against 0.12 in batch 2 and 0.46 in batch 3; phase 1), which fits milder or better-controlled disease.
 
 ### 4. Finding lupus without the interferon signature
 

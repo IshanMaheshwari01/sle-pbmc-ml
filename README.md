@@ -56,13 +56,16 @@ The project's main question is therefore no longer just "how accurate is the cla
   - `R/07_proportions.R`: cell-type proportions per sample, logit-transformed and modelled with **limma** (the propeller approach), adjusted for batch and ancestry.
   - `R/08_differential_expression.R`: pseudobulk DE per cell type with **limma-voom**, adjusted for batch and ancestry. A sample sequenced in two batches gives two profiles, handled with `duplicateCorrelation` blocked on donor. **DESeq2** is run as a second method. **Hallmark** pathways are tested with limma's `cameraPR`.
   - Tests plant a composition shift and an interferon signal in a mock and check both are recovered, and that nothing is called where nothing was planted.
-- [ ] **Phase 3: donor-level ML.** Features from cell-type proportions and per-cell-type pseudobulk expression. Models: L1-logistic regression, random forest, XGBoost. Nested cross-validation with `StratifiedGroupKFold` on donor. AUROC and AUPRC with bootstrap CIs, plus calibration. Stress tests:
-  - a **covariate-only baseline** (batch + ancestry, no expression): the score any expression model has to beat
-  - performance **within batch 4** (25 SLE vs 41 healthy) and **within batch 3**, where batch cannot explain the prediction
-  - performance among **European donors only** (75 vs 74), where ancestry cannot explain it
-  - female donors only throughout; a label-permutation test for the null distribution
-
-  Then **SHAP** to see which cell types and genes drive predictions.
+- [ ] **Phase 3: donor-level ML.** Code ready (`make classify`), `scripts/09_classifier.py`:
+  - **Features** per sample: cell-type composition (centred log-ratio) and pseudobulk log-CPM for seven major cell types. The 1,000 most variable genes per cell type are picked **inside each training fold**, as are imputation and scaling.
+  - **Models:** L1 logistic regression (penalty tuned in an inner grouped CV), random forest and gradient boosting, against three baselines: batch + ancestry only, cell-type proportions only, and a six-gene interferon score only.
+  - **Validation:** 5-fold CV grouped by donor, stratified, repeated 5 times. AUROC with donor-bootstrap 95% CIs.
+  - **Stress tests:**
+    - accuracy **within each batch** that has both groups, and **within each ancestry**, where those variables cannot help
+    - how well the same features identify batch among healthy donors alone
+    - a 100-run label-permutation null
+    - whether the model finds lupus patients **without** a high interferon signature
+    - which feature blocks it relies on (held-out permutation importance)
 - [ ] **Phase 4: write-up.** End-to-end `make all`, a Quarto report, and a one-page summary of findings and limitations.
 - [ ] *Stretch:* flare vs managed disease, within lupus patients only.
 
@@ -72,7 +75,7 @@ The project's main question is therefore no longer just "how accurate is the cla
 mamba env create -f envs/python.yml && conda activate sle-py
 pip install -e .
 
-make test        # 17 tests on a fake dataset with the real file's layout (seconds)
+make test        # 23 tests on a fake dataset with the real file's layout (seconds)
 make mock        # run the whole phase-0 pipeline on that fake dataset
 
 make download    # 12.2 GB from CELLxGENE; resumes if interrupted
@@ -107,13 +110,14 @@ Have about 15 GB free disk for the raw file and outputs. `make subsample` needs 
 ## Repository layout
 
 ```
-config/       config.yaml (real data), mock.yaml (fake data), phase1.yaml, phase2.yaml (parameters)
+config/       config.yaml (real data), mock.yaml (fake data), phase1/2/3.yaml (parameters)
 envs/         python.yml, r.yml
 scripts/      00_download.py, 01_inspect.py, 02_subsample.py   (phase 0)
               03_qc.py, 04_integrate.py, 05_annotate.py          (phase 1)
               06_export_pseudobulk.py                            (phase 2, hands data to R)
-src/sle_pbmc/ streaming h5ad reader, sampling, pseudobulk, phase-1 helpers, figure style
-tests/        mock dataset builder + end-to-end tests for phases 0, 1 and 2
+              09_classifier.py                                   (phase 3)
+src/sle_pbmc/ streaming h5ad reader, sampling, pseudobulk, phase-1 and phase-3 helpers, figure style
+tests/        mock dataset builder + end-to-end tests for phases 0-3
 R/            phase 2 statistics: common.R, 07_proportions.R, 08_differential_expression.R
 notebooks/    phase 3 analysis (to come)
 data/         raw/ and processed/ (git-ignored)

@@ -1,0 +1,495 @@
+,selected in % of folds,mean coefficient
+proportion: classical monocyte,100.0,0.2895662156224812
+B cell|EPSTI1,100.0,0.28646768474303175
+"CD4-positive, alpha-beta T cell|EPSTI1",100.0,0.20364931300470945
+classical monocyte|CXCL10,100.0,0.13421250667714482
+classical monocyte|PTCH2,100.0,-0.23550104186802873
+classical monocyte|SGK1,100.0,-0.3322770506484777
+"CD4-positive, alpha-beta T cell|RNF175",100.0,-0.3623951003457362
+conventional dendritic cell|SNAI1,96.0,0.24039200039664058
+classical monocyte|ID1,96.0,0.19044697086482468
+classical monocyte|TNFRSF12A,96.0,-0.20677951517722593
+"CD8-positive, alpha-beta T cell|EPSTI1",92.0,0.1960703794811112
+classical monocyte|ENSG00000259001,92.0,-0.1591824563561053
+"CD4-positive, alpha-beta T cell|CD70",88.0,0.21913679776831885
+B cell|KLK1,84.0,-0.14768941563811802
+"CD8-positive, alpha-beta T cell|SLC4A10",84.0,-0.21187985941494075
+classical monocyte|RMI1,80.0,0.2078885591638453
+"CD8-positive, alpha-beta T cell|MCOLN2",80.0,0.1152258141995561
+classical monocyte|IL2RB,80.0,-0.1220159425332824
+classical monocyte|BLK,76.0,-0.15639375520217555
+classical monocyte|CA2,72.0,0.22116024402881526
+classical monocyte|IGF2BP3,72.0,0.1432986137441391
+"CD4-positive, alpha-beta T cell|GBP1",72.0,0.11046980409140729
+"CD4-positive, alpha-beta T cell|NUAK2",72.0,-0.07295650085873367
+B cell|SH2D1A,72.0,-0.2631579622374904
+"CD8-positive, alpha-beta T cell|CCR6",68.0,-0.13819562061007487
+natural killer cell|OSBPL10,64.0,-0.07336067125717532
+"CD8-positive, alpha-beta T cell|TSPAN15",64.0,-0.12113985963723176
+classical monocyte|CHD1-DT,64.0,-0.16372999790451503
+"CD4-positive, alpha-beta T cell|APOBEC3H",60.0,0.12363218646542137
+classical monocyte|BLM,60.0,0.10254799877005631
+"CD4-positive, alpha-beta T cell|IRF9",60.0,0.0962510700823029
+classical monocyte|CD83,60.0,-0.17478104891180307
+natural killer cell|SNORD3B-2,56.00000000000001,0.1309916603159177
+B cell|RHOBTB3,56.00000000000001,-0.14859465836232205
+natural killer cell|EPSTI1,52.0,0.12699049451915656
+natural killer cell|PDGFRB,52.0,0.055768824362890296
+classical monocyte|HCAR3,52.0,-0.14812484315427316
+non-classical monocyte|MT1E,48.0,0.08391131131257921
+B cell|TSHZ2,48.0,-0.07504635277488524
+"CD8-positive, alpha-beta T cell|PATL2",44.0,0.17467892690458175
+classical monocyte|EPSTI1,44.0,0.1095527664363082
+non-classical monocyte|C1QC,44.0,0.08297223352482874
+classical monocyte|SMAD7,44.0,0.07400481955508972
+"CD8-positive, alpha-beta T cell|HECW2-AS1",44.0,0.05340879920722082
+non-classical monocyte|AIM2,44.0,0.040516179224051846
+classical monocyte|TEX14,44.0,-0.07857116603454618
+natural killer cell|RAB3GAP1,44.0,-0.09367416278540501
+B cell|GALNTL6,44.0,-0.09727755717373422
+B cell|CKAP4,44.0,-0.10706394046421468
+non-classical monocyte|DUS3L,44.0,-0.21636976989494403
+"CD4-positive, alpha-beta T cell|MB21D2",40.0,0.1480173471183093
+"CD4-positive, alpha-beta T cell|ENSG00000266088",40.0,0.12129744736348229
+classical monocyte|DDIT4,40.0,0.10961782155492368
+"CD4-positive, alpha-beta T cell|IGFL2",40.0,0.09888104405933583
+"CD8-positive, alpha-beta T cell|PCK2",40.0,0.09536174203433848
+non-classical monocyte|ENSG00000273272,40.0,0.09391773947957856
+conventional dendritic cell|SLFN5,40.0,0.07107459737279379
+conventional dendritic cell|SMAD7,40.0,0.06237247581681569
+"CD8-positive, alpha-beta T cell|TTC39C-AS1",40.0,-0.08554968692913065
+"CD8-positive, alpha-beta T cell|RORC",40.0,-0.08788124356475906
+natural killer cell|ENSG00000264577,40.0,-0.1290593577909381
+classical monocyte|MT1E,36.0,0.14660488909535846
+"CD4-positive, alpha-beta T cell|LMNA",36.0,0.11228446725000489
+"CD4-positive, alpha-beta T cell|BHLHE40",36.0,0.08221052056235231
+classical monocyte|PLA1A,36.0,0.04646042897122932
+conventional dendritic cell|SNORD3A,36.0,-0.07456761915894126
+"CD4-positive, alpha-beta T cell|STAT1",32.0,0.12546688483612692
+non-classical monocyte|FRMD4B,32.0,0.11639360232218018
+"CD4-positive, alpha-beta T cell|NPDC1",32.0,0.07102636851473407
+"CD8-positive, alpha-beta T cell|CDCA7",32.0,0.06379921146003265
+non-classical monocyte|C1QB,32.0,0.04798686450254799
+natural killer cell|ENSG00000272092,32.0,0.04757535446443928
+classical monocyte|TIPARP,32.0,-0.05511946973201829
+classical monocyte|RELL1,32.0,-0.06395992134494627
+natural killer cell|NME2,32.0,-0.06673595364741121
+classical monocyte|ENSG00000261888,32.0,-0.07329437494065952
+"CD4-positive, alpha-beta T cell|PHACTR1",32.0,-0.08709068549240905
+non-classical monocyte|ZNF708,32.0,-0.09012176584978412
+"CD4-positive, alpha-beta T cell|ENSG00000262211",32.0,-0.10129021745021495
+"CD8-positive, alpha-beta T cell|P2RY14",32.0,-0.11230066620947214
+B cell|BEX5,32.0,-0.12580056577237905
+"CD8-positive, alpha-beta T cell|HELZ2",28.000000000000004,0.07547663085475176
+"CD4-positive, alpha-beta T cell|LGALS3",28.000000000000004,0.0511356402833188
+classical monocyte|SNORD3A,28.000000000000004,-0.03134803580308527
+classical monocyte|ZNF429,28.000000000000004,-0.05810297315688896
+classical monocyte|HOXB2,28.000000000000004,-0.0840230546772758
+classical monocyte|SCML4,28.000000000000004,-0.09578431099504192
+"CD8-positive, alpha-beta T cell|NR3C2",28.000000000000004,-0.10549697507446913
+conventional dendritic cell|CD9,24.0,0.09316641184184256
+"CD8-positive, alpha-beta T cell|FMN1",24.0,0.06721523382251325
+natural killer cell|KIR3DX1,24.0,0.04780729417308375
+B cell|SLC9B2,24.0,-0.04883729360189749
+classical monocyte|TMEM107,24.0,-0.05483756176508351
+B cell|EML6,24.0,-0.06000006860788837
+"CD8-positive, alpha-beta T cell|IL18RAP",24.0,-0.0612345861351094
+B cell|DOK7,24.0,-0.06528169502042717
+non-classical monocyte|PNRC2,24.0,-0.06799729744178261
+conventional dendritic cell|ENSG00000259001,24.0,-0.06869166459851071
+"CD8-positive, alpha-beta T cell|KRT2",24.0,-0.08960085534160273
+classical monocyte|EGR3,24.0,-0.11100500761408912
+"CD8-positive, alpha-beta T cell|RGS16",20.0,0.12246282096109873
+natural killer cell|TAMALIN,20.0,0.09327811409014015
+non-classical monocyte|CPM,20.0,0.08440906249042235
+"CD4-positive, alpha-beta T cell|TMEM156",20.0,0.08201860529904924
+conventional dendritic cell|ENSG00000259529,20.0,0.07557347641912852
+classical monocyte|ADAMTS2,20.0,0.07536136579295769
+natural killer cell|CIMAP2,20.0,0.056737517073241775
+natural killer cell|LXN,20.0,0.0499780476335546
+"CD4-positive, alpha-beta T cell|PHLDA2",20.0,0.04532425810443462
+natural killer cell|ANKRD20A4P,20.0,0.03152702663464271
+non-classical monocyte|SYCE1L,20.0,-0.024068245985906955
+"CD4-positive, alpha-beta T cell|ZNF749",20.0,-0.034619004024081974
+non-classical monocyte|MLLT3,20.0,-0.042640963203590024
+natural killer cell|ZNF134,20.0,-0.059364792330217506
+B cell|NXPH4,20.0,-0.0648216969481517
+natural killer cell|SCIMP,20.0,-0.06855474824641923
+conventional dendritic cell|CRYZ,20.0,-0.07671962594298301
+B cell|GEN1,20.0,-0.08914714792051177
+natural killer cell|SFMBT1,20.0,-0.09049850461223656
+"CD4-positive, alpha-beta T cell|ENSG00000273156",20.0,-0.09584310917868366
+B cell|IL2RA,20.0,-0.10293027550900062
+classical monocyte|TTN,20.0,-0.11748175936098493
+"CD8-positive, alpha-beta T cell|FBXO6",16.0,0.12404676242067655
+"CD4-positive, alpha-beta T cell|TRIM69",16.0,0.10984025894308033
+non-classical monocyte|FCGR1A,16.0,0.09632665474915833
+"CD4-positive, alpha-beta T cell|TMEM244",16.0,0.0872287032935781
+"CD8-positive, alpha-beta T cell|CHRNA1",16.0,0.07637829432496476
+B cell|LINC00910,16.0,0.06949207082614892
+conventional dendritic cell|MT1E,16.0,0.055861108877844956
+non-classical monocyte|PNMA5,16.0,0.05565451084361067
+"CD8-positive, alpha-beta T cell|ATG2B",16.0,0.052797017753020675
+B cell|DBNDD1,16.0,0.03820455721577483
+classical monocyte|RTP4,16.0,0.03688910061518705
+B cell|CD200,16.0,0.0333313306759615
+B cell|EIF2AK3-DT,16.0,0.02846057682659966
+B cell|SPSB2,16.0,0.02613898608172534
+non-classical monocyte|C2,16.0,0.02596025335651203
+natural killer cell|LDB2,16.0,-0.041656705953121584
+classical monocyte|SLC38A1,16.0,-0.050706929288210696
+"CD8-positive, alpha-beta T cell|TMEM121",16.0,-0.054571327231613904
+classical monocyte|TUBA1B-AS1,16.0,-0.0591932391263081
+conventional dendritic cell|SLC44A2,16.0,-0.060224893451316715
+natural killer cell|ENSG00000226899,16.0,-0.060835035597558776
+non-classical monocyte|PPP4R1L,16.0,-0.06579222654557954
+"CD4-positive, alpha-beta T cell|SH2D1B",16.0,-0.08461465869952328
+natural killer cell|HYI,16.0,-0.09552322074632502
+conventional dendritic cell|SMAGP,12.0,0.1513666821313272
+B cell|GPR155,12.0,0.12199344976757664
+natural killer cell|RNF170,12.0,0.09386315515988448
+natural killer cell|CDKN2A,12.0,0.09257495319041853
+"CD4-positive, alpha-beta T cell|TNFRSF4",12.0,0.08951499949598678
+"CD4-positive, alpha-beta T cell|MCOLN3",12.0,0.08192240575639971
+"CD8-positive, alpha-beta T cell|PGAP1",12.0,0.07901609920169775
+classical monocyte|IRF9,12.0,0.07056036400535844
+"CD4-positive, alpha-beta T cell|HDGFL3",12.0,0.06061036819753147
+B cell|PPP1R21-DT,12.0,0.059016878106773994
+"CD4-positive, alpha-beta T cell|KLRG1",12.0,0.05785704744284464
+classical monocyte|VSTM1,12.0,0.05579965633408135
+classical monocyte|DHX58,12.0,0.04304932572780818
+classical monocyte|SLCO4C1,12.0,0.03800064364546646
+classical monocyte|CD180,12.0,0.03564286626592265
+classical monocyte|NFE2,12.0,0.02780505462848319
+"CD4-positive, alpha-beta T cell|CKS2",12.0,0.02364536635183004
+B cell|MZF1-AS1,12.0,0.018586688508379964
+non-classical monocyte|SORBS3,12.0,0.01611628871716567
+natural killer cell|LRRC37A2,12.0,-0.018040703345731435
+"CD4-positive, alpha-beta T cell|CTSL",12.0,-0.02050022891372821
+"CD8-positive, alpha-beta T cell|FEZ1",12.0,-0.023390321561317044
+natural killer cell|GOLGA8M,12.0,-0.03140683875334276
+conventional dendritic cell|TSC2,12.0,-0.03374902750833062
+B cell|PNRC2,12.0,-0.03469961792268853
+classical monocyte|PDE7B,12.0,-0.03637737062514073
+B cell|HIVEP1,12.0,-0.0389180822855416
+natural killer cell|CROCC,12.0,-0.03962726652112592
+B cell|TNFRSF25,12.0,-0.03963181662710716
+"CD8-positive, alpha-beta T cell|CDK5R1",12.0,-0.04161180209894856
+non-classical monocyte|CPED1,12.0,-0.04380373181417555
+B cell|BAIAP3,12.0,-0.04874599222119241
+conventional dendritic cell|CNFN,12.0,-0.052189040598371324
+"CD8-positive, alpha-beta T cell|NRCAM",12.0,-0.05229821422469214
+classical monocyte|GPR183,12.0,-0.059620360013330174
+proportion: plasmacytoid dendritic cell,12.0,-0.061311139979391575
+"CD8-positive, alpha-beta T cell|KLRC1",12.0,-0.08561661155733513
+conventional dendritic cell|CD5,12.0,-0.09227803338645617
+"CD4-positive, alpha-beta T cell|CCDC141",12.0,-0.0938632360220044
+"CD8-positive, alpha-beta T cell|LINC01644",12.0,-0.11913665517132503
+non-classical monocyte|PTPRN2-AS1,12.0,-0.12340334904395948
+conventional dendritic cell|KPNA5,12.0,-0.13218724492191672
+conventional dendritic cell|BMP2K-DT,8.0,0.2174589024346516
+conventional dendritic cell|C21orf91,8.0,0.15076002095570176
+non-classical monocyte|CMPK2,8.0,0.12001065045466557
+B cell|FAM53C,8.0,0.11640488523907666
+"CD4-positive, alpha-beta T cell|ENSG00000273445",8.0,0.11612409770104364
+"CD4-positive, alpha-beta T cell|IL4I1",8.0,0.11241492322376492
+"CD4-positive, alpha-beta T cell|FAM53C",8.0,0.1088353972594575
+B cell|ATF3,8.0,0.10525867209288398
+B cell|OAS3,8.0,0.10211064407915454
+classical monocyte|SERINC2,8.0,0.10144015145252905
+"CD4-positive, alpha-beta T cell|MAF",8.0,0.10027609877437602
+natural killer cell|DUSP5,8.0,0.10025640609456671
+classical monocyte|PLAC8,8.0,0.09999138101413631
+B cell|HMGCS1,8.0,0.07724702483466137
+classical monocyte|GASK1B-AS1,8.0,0.07244174044493562
+B cell|WNT10A,8.0,0.06542458344907129
+natural killer cell|PRKAB1,8.0,0.05969031342422384
+B cell|TSC22D1,8.0,0.0573901620466043
+"CD8-positive, alpha-beta T cell|FKBP1B",8.0,0.05367420065576377
+"CD8-positive, alpha-beta T cell|GP9",8.0,0.0533155817733056
+natural killer cell|OGFOD2,8.0,0.05266971212253288
+"CD4-positive, alpha-beta T cell|WNT10A",8.0,0.049167564473475735
+"CD8-positive, alpha-beta T cell|PTGDR",8.0,0.04602320479212917
+"CD8-positive, alpha-beta T cell|CD70",8.0,0.04422378744575438
+non-classical monocyte|LRIF1,8.0,0.04184357207772384
+B cell|KDM6B,8.0,0.04163021370637726
+"CD8-positive, alpha-beta T cell|HDGFL3",8.0,0.03898728018859397
+"CD4-positive, alpha-beta T cell|PMAIP1",8.0,0.03890280119962806
+classical monocyte|SEPTIN4,8.0,0.028741110669684225
+"CD8-positive, alpha-beta T cell|OASL",8.0,0.023621065211820134
+classical monocyte|MSR1,8.0,0.022888633899048466
+conventional dendritic cell|SIGLEC1,8.0,0.018892962236313614
+non-classical monocyte|ENSG00000250397,8.0,0.01664776069413587
+conventional dendritic cell|CTSL,8.0,0.013829296642996997
+classical monocyte|FANCL,8.0,0.01003203221644625
+B cell|TAMALIN,8.0,0.009174986662744938
+classical monocyte|KCNJ2,8.0,0.00483674957569333
+"CD8-positive, alpha-beta T cell|NMUR1",8.0,0.004004010600628562
+conventional dendritic cell|ENSG00000270103,8.0,-0.0036562176602840477
+B cell|BTNL9,8.0,-0.007833718194649241
+natural killer cell|PPP1R9A,8.0,-0.008570210876586788
+classical monocyte|EGR2,8.0,-0.01118454281050547
+non-classical monocyte|TLK2,8.0,-0.012745488281630845
+classical monocyte|UPK3A,8.0,-0.014302171590597504
+non-classical monocyte|ANTXR2,8.0,-0.015354276347434012
+"CD4-positive, alpha-beta T cell|CSF1R",8.0,-0.017674537970030206
+non-classical monocyte|USF1,8.0,-0.022657985778212566
+"CD8-positive, alpha-beta T cell|WARS2-AS1",8.0,-0.0271534389385716
+classical monocyte|ENSG00000270022,8.0,-0.030239387039770176
+"CD4-positive, alpha-beta T cell|CEACAM21",8.0,-0.030403367255155266
+"CD4-positive, alpha-beta T cell|KLRF1",8.0,-0.03110089937000238
+natural killer cell|SAP30-DT,8.0,-0.03382863543568207
+non-classical monocyte|SPTBN1,8.0,-0.03596429758698422
+non-classical monocyte|FAM13A,8.0,-0.036543113034284216
+non-classical monocyte|RALGPS2,8.0,-0.04044801427612728
+B cell|EPHA4,8.0,-0.04078574715309344
+classical monocyte|LINC00910,8.0,-0.04204917880733371
+non-classical monocyte|NEFH,8.0,-0.042974684198198505
+"CD8-positive, alpha-beta T cell|ELOVL4",8.0,-0.04531626032342696
+B cell|NME2,8.0,-0.04704131279223775
+"CD4-positive, alpha-beta T cell|GSTM4",8.0,-0.04929524568077021
+classical monocyte|ENSG00000124593,8.0,-0.05175904184369203
+"CD8-positive, alpha-beta T cell|KLRB1",8.0,-0.05632839559719095
+B cell|MCOLN2,8.0,-0.058144374609292296
+B cell|RASSF6,8.0,-0.06346964493185019
+classical monocyte|DDX11,8.0,-0.06401816509719961
+B cell|PASK,8.0,-0.06468801748368747
+classical monocyte|RBM44,8.0,-0.0657208470228805
+B cell|CEACAM21,8.0,-0.07153855938516662
+natural killer cell|ESR2,8.0,-0.07899699220767036
+"CD8-positive, alpha-beta T cell|PRAM1",8.0,-0.08862218264206889
+"CD4-positive, alpha-beta T cell|SLC16A10",8.0,-0.09354866134314964
+non-classical monocyte|GIHCG,8.0,-0.09573310220317055
+conventional dendritic cell|TLR10,8.0,-0.10905969033404213
+classical monocyte|IKZF3,8.0,-0.12924971952336992
+conventional dendritic cell|SNX22,8.0,-0.13259268112650574
+classical monocyte|SNORD3B-1,8.0,-0.137212910989065
+conventional dendritic cell|ZP3,8.0,-0.18470457872202867
+natural killer cell|GOLGA1,8.0,-0.20086423167430598
+classical monocyte|ENSG00000272195,8.0,-0.21770643092200553
+"CD4-positive, alpha-beta T cell|CXCR3",4.0,0.2453271042757258
+natural killer cell|CCDC71L,4.0,0.22339867010300168
+"CD4-positive, alpha-beta T cell|IFI44",4.0,0.2018263985097184
+non-classical monocyte|RNF24,4.0,0.18617707405818787
+non-classical monocyte|CXXC5,4.0,0.1734469277637809
+conventional dendritic cell|APOBEC3A,4.0,0.16939085517895378
+non-classical monocyte|METTL13,4.0,0.1393429443122271
+"CD8-positive, alpha-beta T cell|CEROX1",4.0,0.13756685503642785
+conventional dendritic cell|PSD4,4.0,0.1208346899199539
+B cell|CPM,4.0,0.11737813725210869
+classical monocyte|MYL9,4.0,0.11380482740845374
+"CD4-positive, alpha-beta T cell|KPNA2",4.0,0.1082931135450374
+"CD8-positive, alpha-beta T cell|CMPK2",4.0,0.10781918965337342
+"CD4-positive, alpha-beta T cell|PERP",4.0,0.09744838552516473
+B cell|SYNPO,4.0,0.09595382237116276
+natural killer cell|UBASH3B,4.0,0.09505599475461743
+non-classical monocyte|EPSTI1,4.0,0.09016736630249933
+non-classical monocyte|SNTB2,4.0,0.08922465136012328
+B cell|NEIL1,4.0,0.08893132593833324
+classical monocyte|OAS2,4.0,0.08777995331648815
+B cell|EREG,4.0,0.08467803157271629
+conventional dendritic cell|PM20D2,4.0,0.0736458637337563
+"CD8-positive, alpha-beta T cell|SLC25A29",4.0,0.07364424858472514
+non-classical monocyte|H2BC5,4.0,0.0717764871860751
+natural killer cell|RSAD2,4.0,0.06532709867170511
+B cell|OASL,4.0,0.0651552981478596
+non-classical monocyte|LPL,4.0,0.06315734921586283
+"CD8-positive, alpha-beta T cell|LTA",4.0,0.06175106141760071
+non-classical monocyte|PRRG4,4.0,0.060276403479164575
+B cell|GCNT1,4.0,0.05793618119619321
+"CD8-positive, alpha-beta T cell|PARP9",4.0,0.057915368920242856
+"CD4-positive, alpha-beta T cell|CEP15",4.0,0.05456541472375126
+conventional dendritic cell|FCGR1A,4.0,0.054463762382945195
+natural killer cell|UBA6-DT,4.0,0.05294377160033086
+classical monocyte|PDE6H,4.0,0.04906739121738051
+classical monocyte|TMEM186,4.0,0.04486000194661359
+classical monocyte|HES4,4.0,0.04247494116242001
+B cell|RFWD3,4.0,0.04111586429538962
+"CD4-positive, alpha-beta T cell|CFH",4.0,0.0408159689283991
+conventional dendritic cell|KAT2B,4.0,0.03948342953671765
+"CD4-positive, alpha-beta T cell|NEU1",4.0,0.03889928030312094
+conventional dendritic cell|CRIP3,4.0,0.03876609521528749
+classical monocyte|SLC38A7,4.0,0.03810186672794593
+natural killer cell|ENSG00000270103,4.0,0.03492582260679942
+"CD4-positive, alpha-beta T cell|JUN",4.0,0.03483641312813855
+non-classical monocyte|GFI1B,4.0,0.03430758707960593
+B cell|SYNE3,4.0,0.031116498956315936
+"CD8-positive, alpha-beta T cell|APOBEC3H",4.0,0.030159564607949576
+natural killer cell|NUDT11,4.0,0.029160148762133013
+natural killer cell|NDFIP2,4.0,0.02875261458437397
+non-classical monocyte|CDYL2,4.0,0.028514927430993126
+classical monocyte|BPI,4.0,0.028078884077571777
+classical monocyte|CES1,4.0,0.02588318585808088
+natural killer cell|POU5F2,4.0,0.0245286059379135
+classical monocyte|HERC6,4.0,0.023006349414964607
+"CD4-positive, alpha-beta T cell|GREM2",4.0,0.022973708106344803
+non-classical monocyte|FAM8A1,4.0,0.022530953154050966
+non-classical monocyte|KANSL3,4.0,0.022475632710839362
+non-classical monocyte|ASPHD2,4.0,0.021755408061100483
+conventional dendritic cell|ASB16-AS1,4.0,0.021525569437831182
+conventional dendritic cell|TSC22D1,4.0,0.019907435835012935
+classical monocyte|C14orf119,4.0,0.0197109753178139
+"CD8-positive, alpha-beta T cell|LEAP2",4.0,0.019648646467381306
+B cell|NRGN,4.0,0.019199039155293644
+natural killer cell|GIN1,4.0,0.0157940386615493
+classical monocyte|NPIPB15,4.0,0.01508525603109491
+"CD8-positive, alpha-beta T cell|MIR4435-2HG",4.0,0.014590227641753054
+non-classical monocyte|CD2AP,4.0,0.014549022124558244
+"CD4-positive, alpha-beta T cell|SOCS1",4.0,0.013929033304500595
+"CD8-positive, alpha-beta T cell|B3GAT1",4.0,0.012431812486054064
+"CD4-positive, alpha-beta T cell|NCAPG2",4.0,0.011853632263299448
+"CD4-positive, alpha-beta T cell|FRY-AS1",4.0,0.011670845790715915
+"CD8-positive, alpha-beta T cell|CA2",4.0,0.011330309042628465
+classical monocyte|SNAI1,4.0,0.010946719288848009
+classical monocyte|MT2A,4.0,0.010593146135467886
+natural killer cell|KIAA0753,4.0,0.010277266210133546
+classical monocyte|MS4A4A,4.0,0.009193044491645095
+B cell|CDKN1A,4.0,0.005910668812449882
+non-classical monocyte|USPL1,4.0,0.005208951930384719
+classical monocyte|ZNG1C,4.0,0.004558000632365111
+non-classical monocyte|CRTAM,4.0,0.00350135255854057
+non-classical monocyte|AATBC,4.0,0.003495940849905492
+"CD4-positive, alpha-beta T cell|ATP1B1",4.0,0.003177744514321737
+classical monocyte|ENKUR,4.0,0.0020619608569360094
+non-classical monocyte|ACAD9,4.0,0.0019339252638305654
+non-classical monocyte|NINJ2-AS1,4.0,0.001076854616021041
+non-classical monocyte|VPS13A,4.0,0.001031147780466618
+classical monocyte|RNASE2,4.0,0.0009997341075897426
+"CD4-positive, alpha-beta T cell|FOXP3",4.0,0.0006006948116501108
+"CD8-positive, alpha-beta T cell|IRF9",4.0,0.00021432495859104173
+non-classical monocyte|POC5,4.0,0.00020636757019086837
+conventional dendritic cell|ZBED6,4.0,-0.00017964735082338804
+"CD8-positive, alpha-beta T cell|CMTM8",4.0,-0.00022669881251678563
+non-classical monocyte|FCMR,4.0,-0.0002395090214954163
+"CD4-positive, alpha-beta T cell|SLC22A17",4.0,-0.0007350134103146786
+B cell|ALMS1,4.0,-0.0014741009801805217
+"CD4-positive, alpha-beta T cell|CMTM8",4.0,-0.0017121117186961535
+"CD4-positive, alpha-beta T cell|SLC35E2A",4.0,-0.00229844037358402
+"CD4-positive, alpha-beta T cell|TMIE",4.0,-0.0029964390208632105
+B cell|COL4A3,4.0,-0.003345589298849068
+B cell|SLFN13,4.0,-0.003870074099830882
+non-classical monocyte|PCNX4,4.0,-0.00423966585098288
+B cell|RPL30-AS1,4.0,-0.005053444358276447
+non-classical monocyte|GOLM1,4.0,-0.0050951409907735576
+conventional dendritic cell|BMI1,4.0,-0.0053508756749073025
+B cell|CRIP1,4.0,-0.005602744788067406
+non-classical monocyte|PHF2,4.0,-0.006355389390498723
+"CD8-positive, alpha-beta T cell|NRIP1",4.0,-0.006493619697109564
+"CD4-positive, alpha-beta T cell|CHI3L2",4.0,-0.0065302127533643315
+non-classical monocyte|POLR3E,4.0,-0.00794416868618867
+classical monocyte|TC2N,4.0,-0.008683609528897672
+"CD8-positive, alpha-beta T cell|CPA5",4.0,-0.008710803327488094
+non-classical monocyte|LRCH1,4.0,-0.009015706240787489
+natural killer cell|FHIT,4.0,-0.010133595578946261
+B cell|ENSG00000270681,4.0,-0.010184513567863684
+conventional dendritic cell|SLC43A3,4.0,-0.01023448116915113
+non-classical monocyte|ADORA2A-AS1,4.0,-0.010496558240538906
+conventional dendritic cell|RAB33A,4.0,-0.010815246312621455
+conventional dendritic cell|ZSCAN18,4.0,-0.011053157358037326
+B cell|TBC1D12,4.0,-0.011927845268946243
+natural killer cell|MUC12-AS1,4.0,-0.012324815281323013
+natural killer cell|PELI2,4.0,-0.012329303005940349
+conventional dendritic cell|RFX3,4.0,-0.012462008775689239
+classical monocyte|FTCDNL1,4.0,-0.013572129633064856
+B cell|VPS33B,4.0,-0.014372399569248226
+"CD8-positive, alpha-beta T cell|CXCR6",4.0,-0.01507649085305424
+non-classical monocyte|LAIR2,4.0,-0.015135604513259786
+conventional dendritic cell|EEF1G,4.0,-0.015202148352200314
+natural killer cell|NAGA,4.0,-0.015202563840879594
+non-classical monocyte|SPOCK2,4.0,-0.015223477198190769
+classical monocyte|PRMT9,4.0,-0.01602948286770715
+conventional dendritic cell|LATS1,4.0,-0.016843089394714884
+classical monocyte|ENOSF1,4.0,-0.0176743109543862
+B cell|MBTPS2,4.0,-0.01773492807442601
+classical monocyte|LINC01550,4.0,-0.01797944334607377
+"CD4-positive, alpha-beta T cell|ACTR3-AS1",4.0,-0.017984021975730922
+conventional dendritic cell|GNL3L,4.0,-0.019431872055471474
+conventional dendritic cell|HCAR3,4.0,-0.020567616646499844
+"CD4-positive, alpha-beta T cell|DHX35",4.0,-0.020676246082891772
+B cell|ZNF557,4.0,-0.021088068573961793
+natural killer cell|NUP153-AS1,4.0,-0.021451420391394038
+classical monocyte|ERMN,4.0,-0.023304817143518758
+classical monocyte|EFCAB13,4.0,-0.02350699266592325
+non-classical monocyte|ENSG00000259001,4.0,-0.02385630882780108
+natural killer cell|EFHC2,4.0,-0.023996044724295323
+conventional dendritic cell|ITK,4.0,-0.024971252007673705
+conventional dendritic cell|NME2,4.0,-0.027068565640199466
+classical monocyte|ENSG00000270103,4.0,-0.027164762702618292
+B cell|TEC,4.0,-0.027172494415078286
+classical monocyte|BTG2-DT,4.0,-0.028193141816836017
+B cell|ENOSF1,4.0,-0.028719246767824398
+non-classical monocyte|RFLNB,4.0,-0.029146906341052648
+natural killer cell|FAH,4.0,-0.02916265801588896
+classical monocyte|MZB1,4.0,-0.030391312741984734
+non-classical monocyte|MIER3,4.0,-0.03229770818473258
+non-classical monocyte|EIF5AL1,4.0,-0.03273173065908136
+"CD8-positive, alpha-beta T cell|ZNF441",4.0,-0.033432706035973744
+"CD8-positive, alpha-beta T cell|C20orf204",4.0,-0.03356858274659714
+natural killer cell|LINC01409,4.0,-0.03436813832827799
+B cell|PAXIP1-AS2,4.0,-0.035114961164937106
+"CD8-positive, alpha-beta T cell|HIVEP1",4.0,-0.03524718427708314
+conventional dendritic cell|PYHIN1,4.0,-0.035640577036325165
+"CD8-positive, alpha-beta T cell|ENSG00000272807",4.0,-0.036918328592895636
+classical monocyte|ZNF528,4.0,-0.03726566026911229
+conventional dendritic cell|ENSG00000262202,4.0,-0.03837881309224544
+conventional dendritic cell|ATG14,4.0,-0.03929606315118556
+"CD8-positive, alpha-beta T cell|CDC42EP3-AS1",4.0,-0.040297770309531133
+classical monocyte|ASAH1-AS1,4.0,-0.04043955650607977
+"CD4-positive, alpha-beta T cell|BLK",4.0,-0.040632240812135824
+non-classical monocyte|TMEM94,4.0,-0.04084049934556896
+classical monocyte|MIR646HG,4.0,-0.04114999948494594
+non-classical monocyte|SERINC5,4.0,-0.043623612868806755
+non-classical monocyte|GPAT4,4.0,-0.044527623035951855
+"CD8-positive, alpha-beta T cell|TLE1",4.0,-0.044732599750002176
+conventional dendritic cell|GTF2H2,4.0,-0.045484757902832115
+non-classical monocyte|PDE8B,4.0,-0.04583586537699617
+natural killer cell|CCDC152,4.0,-0.04645583924395993
+classical monocyte|LINC02265,4.0,-0.048986040886374586
+conventional dendritic cell|PRPF39,4.0,-0.04945765100562173
+"CD8-positive, alpha-beta T cell|SCGB3A1",4.0,-0.052350683995136926
+"CD8-positive, alpha-beta T cell|SLC7A5",4.0,-0.05313967899364191
+non-classical monocyte|LYPD2,4.0,-0.05333041910075807
+conventional dendritic cell|LINC02812,4.0,-0.05366793367388065
+natural killer cell|KLHL2,4.0,-0.054398950542676114
+natural killer cell|ZNF562,4.0,-0.05590620203121603
+"CD4-positive, alpha-beta T cell|ENSG00000264577",4.0,-0.0579052918946317
+non-classical monocyte|ENSG00000228327,4.0,-0.06467307632976133
+"CD4-positive, alpha-beta T cell|ENSG00000258181",4.0,-0.06653487422726678
+classical monocyte|ZNF43,4.0,-0.06871608045278754
+classical monocyte|HCAR2,4.0,-0.06874185116395166
+"CD8-positive, alpha-beta T cell|SPRY1",4.0,-0.07073892247741727
+non-classical monocyte|NRDE2,4.0,-0.07582083545379677
+"CD8-positive, alpha-beta T cell|DYNC2H1",4.0,-0.07876919281111264
+classical monocyte|ENSG00000268030,4.0,-0.07878198092287415
+non-classical monocyte|PTBP2,4.0,-0.07881463354515644
+B cell|ADORA2A-AS1,4.0,-0.0808398622964826
+natural killer cell|ZNF136,4.0,-0.0837359261917943
+"CD4-positive, alpha-beta T cell|ENSG00000272144",4.0,-0.08446679174103605
+natural killer cell|ZNF516,4.0,-0.08449196832221499
+natural killer cell|TSIX,4.0,-0.0844928067726341
+natural killer cell|CCR7,4.0,-0.08698929030357791
+non-classical monocyte|MAL,4.0,-0.08864547028818515
+"CD8-positive, alpha-beta T cell|RHOBTB3",4.0,-0.08946751895583503
+B cell|SMKR1,4.0,-0.09125047032430182
+classical monocyte|ENSG00000272540,4.0,-0.09952939790202724
+B cell|DEPDC5,4.0,-0.10067239136804813
+"CD4-positive, alpha-beta T cell|CDK5R1",4.0,-0.10154662745855496
+conventional dendritic cell|SNORD3B-1,4.0,-0.10412923195610696
+"CD4-positive, alpha-beta T cell|ZNF814",4.0,-0.10651604203430468
+"CD8-positive, alpha-beta T cell|TSHZ2",4.0,-0.1155253774611631
+non-classical monocyte|CASP9,4.0,-0.1171064055364061
+conventional dendritic cell|TLR4,4.0,-0.12659690902613877
+"CD8-positive, alpha-beta T cell|CACNA2D4",4.0,-0.1319591781263899
+natural killer cell|PXN-AS1,4.0,-0.13197425160165796
+classical monocyte|ENSG00000232640,4.0,-0.13471457838937403
+classical monocyte|LRRC8B,4.0,-0.13692768327295418
+"CD4-positive, alpha-beta T cell|ENSG00000260349",4.0,-0.14027217730811917
+classical monocyte|PTGS2,4.0,-0.15570465349494406
+classical monocyte|SH2D2A,4.0,-0.15664776252262197
+classical monocyte|LEKR1,4.0,-0.16320422076577035
+B cell|OCLN,4.0,-0.1692801168572602
+"CD8-positive, alpha-beta T cell|IL23R",4.0,-0.17191724306156944
+conventional dendritic cell|THADA,4.0,-0.18021823468873016
+"CD4-positive, alpha-beta T cell|ADTRP",4.0,-0.18812029338253355
+B cell|PXN,4.0,-0.22253228193247443
+B cell|IL6R,4.0,-0.23407258007600243

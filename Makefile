@@ -2,7 +2,7 @@ PY      ?= python
 CONFIG  ?= config/config.yaml
 RSCRIPT ?= Rscript
 
-.PHONY: help mock download inspect dev subsample qc integrate annotate phase1 phase1-dev export genesets proportions de phase2 test clean-processed
+.PHONY: help mock download inspect dev subsample qc integrate annotate phase1 phase1-dev export genesets proportions de phase2 classify classify-quick test clean-processed
 
 help:
 	@echo "make mock       - build a small fake dataset and run the pipeline on it (no download)"
@@ -20,6 +20,8 @@ help:
 	@echo "make proportions - phase 2: cell-type proportions, lupus vs healthy (R)"
 	@echo "make de         - phase 2: pseudobulk differential expression + pathways (R)"
 	@echo "make phase2     - export, proportions and de"
+	@echo "make classify   - phase 3: donor-level classifier + stress tests (needs make export)"
+	@echo "make classify-quick - phase 3 with 1 CV repeat and 10 permutations (trial run)"
 	@echo "make test       - run the test suite"
 
 mock:
@@ -71,6 +73,12 @@ de:
 	$(RSCRIPT) R/08_differential_expression.R
 
 phase2: export proportions de
+
+classify:
+	$(PY) scripts/09_classifier.py --config $(CONFIG)
+
+classify-quick:
+	$(PY) scripts/09_classifier.py --config $(CONFIG) --quick
 
 test:
 	$(PY) -m pytest -q

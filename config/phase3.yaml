@@ -1,0 +1,40 @@
+# ---------------------------------------------------------------------------
+# Phase 3: donor-level lupus classifier and the checks that make its accuracy
+# believable. Input is the phase-2 export (data/processed/phase2), so the
+# cohort is the same 239 women as the statistics.
+# ---------------------------------------------------------------------------
+
+seed: 0
+
+features:
+  # Pseudobulk expression blocks: one block of genes per cell type.
+  cell_types:
+    - "CD4-positive, alpha-beta T cell"
+    - "CD8-positive, alpha-beta T cell"
+    - "classical monocyte"
+    - "non-classical monocyte"
+    - "B cell"
+    - "natural killer cell"
+    - "conventional dendritic cell"
+  min_cells: 10              # a profile needs this many cells, else the block is missing for that unit
+  min_detect_frac: 0.10      # label-free pre-filter: gene detected (CPM >= 1) in >= 10% of units
+  top_genes_per_block: 1000  # chosen by variance INSIDE each training fold
+  ifn_genes: ["IFI27", "IFI44L", "IFIT1", "ISG15", "RSAD2", "SIGLEC1"]
+  pseudocount_clr: 0.5
+
+cv:
+  outer_folds: 5
+  repeats: 5                 # different fold splits; predictions are averaged
+  inner_folds: 3             # for tuning the L1 penalty, grouped by donor
+  lr_C_grid: [0.01, 0.03, 0.1, 0.3, 1.0]
+
+evaluation:
+  bootstrap: 1000            # donor-level bootstrap for 95% confidence intervals
+  min_per_class: 5           # a subgroup is only scored with at least this many of each class
+  ifn_high_z: 2.0            # SLE donor is "IFN-high" if its monocyte IFN score is > 2 SD above healthy donors of the same batch
+  permutations: 100          # label-permutation null for the main model (smallest p = 1/101)
+  importance_model: "L1 logistic (all features)"
+
+models:
+  rf_trees: 500
+  gbm: {learning_rate: 0.05, max_iter: 200, max_depth: 3, l2_regularization: 1.0}

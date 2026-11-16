@@ -2,6 +2,8 @@
 
 I used 1.26 million single blood cells from 162 lupus (SLE) patients and 99 healthy people to see whether immune cells can separate the two groups. The catch is that in this dataset, disease status is badly mixed up with processing batch and ancestry. So the real question became: how much of the accuracy is left once batch, ancestry and 10x library can't explain it?
 
+The main results are also up as a small interactive [dashboard](https://ishanmaheshwari01.github.io/sle-pbmc-ml/docs/).
+
 ## Short answer
 
 - If you just pool everyone, the classifier gets an AUROC of 0.99. But batch and ancestry alone already get 0.87, and the same features can tell which batch a healthy donor was processed in with AUROC 1.00. So the pooled number is inflated.

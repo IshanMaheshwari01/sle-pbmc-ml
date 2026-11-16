@@ -25,9 +25,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 
-# --------------------------------------------------------------------------
-# data
-# --------------------------------------------------------------------------
+# --- data ---
 @dataclass
 class Dataset:
     X: pd.DataFrame            # units x features (may contain NaN)
@@ -109,9 +107,7 @@ def build_dataset(counts, profiles: pd.DataFrame, genes: pd.DataFrame, p3: dict)
     return Dataset(X=X, meta=meta, y=y, blocks=blocks)
 
 
-# --------------------------------------------------------------------------
-# pipeline pieces
-# --------------------------------------------------------------------------
+# --- pipeline pieces ---
 class BlockTopVariance(BaseEstimator, TransformerMixin):
     """Keep the `n` most variable columns of each expression block, chosen on
     the training rows only; other columns pass through."""
@@ -204,9 +200,7 @@ def model_specs(ds: Dataset) -> list[ModelSpec]:
     ]
 
 
-# --------------------------------------------------------------------------
-# cross-validation
-# --------------------------------------------------------------------------
+# --- cross-validation ---
 def _auc(y, p):
     return roc_auc_score(y, p) if len(np.unique(y)) == 2 else np.nan
 
@@ -277,9 +271,7 @@ def _with_y(ds, y):
     return ds if y is ds.y else Dataset(X=ds.X, meta=ds.meta, y=y, blocks=ds.blocks)
 
 
-# --------------------------------------------------------------------------
-# evaluation
-# --------------------------------------------------------------------------
+# --- evaluation ---
 def donor_level(meta: pd.DataFrame, y: np.ndarray, p: np.ndarray) -> pd.DataFrame:
     d = pd.DataFrame({"donor": meta["donor"].to_numpy(), "y": y, "p": p,
                       "ancestry": meta["ancestry"].to_numpy()})

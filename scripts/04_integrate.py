@@ -70,7 +70,6 @@ from sle_pbmc.plotting import (  # noqa: E402
 EMBEDDINGS = {"Unintegrated (PCA)": "X_pca", "Harmony": "X_harmony", "scVI": "X_scVI"}
 
 
-# --------------------------------------------------------------------------
 def run_scvi(hv: ad.AnnData, batch: str, p: dict, seed: int, model_dir: Path, max_epochs: int | None):
     import scvi
     import torch
@@ -141,7 +140,6 @@ def pick_balanced_batch(obs: pd.DataFrame, batch: str, disease: str, donor: str)
     return str(t.min(axis=1).idxmax())
 
 
-# --------------------------------------------------------------------------
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--config", default=None)
